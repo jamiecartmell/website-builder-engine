@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aerial Yoga — Playful movement. Powerful connection.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,500&display=swap" rel="stylesheet">
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --cream:       #F6F4EF;
+      --cream-mid:   #EDE9E2;
+      --cream-dark:  #D9CBB8;
+      --teal:        #04A19C;
+      --teal-light:  #3DBDB8;
+      --teal-pale:   #8DB8B3;
+      --teal-mist:   #E6F5F4;
+      --green:       #0C5F5C;
+      --green-mid:   #0A4A47;
+      --text:        #2B2B2B;
+      --text-soft:   #555555;
+      --text-muted:  #8A8A8A;
+      --border:      rgba(4,161,156,.12);
+
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'Nunito Sans', system-ui, sans-serif;
+    }
+
+    /* ─── RESET ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--text);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* Subtle grain over everything */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 9999;
+      opacity: .022;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ─── TYPE HELPERS ───────────────────────────────────── */
+    .label {
+      font-family: var(--sans);
+      font-size: .68rem; font-weight: 500;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--teal);
+    }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .95s cubic-bezier(.16,1,.3,1),
+                  transform .95s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .reveal-fade { opacity: 0; transition: opacity 1.1s cubic-bezier(.16,1,.3,1); }
+    .reveal-fade.in { opacity: 1; }
+    .d1 { transition-delay: .08s; }
+    .d2 { transition-delay: .17s; }
+    .d3 { transition-delay: .26s; }
+    .d4 { transition-delay: .35s; }
+    .d5 { transition-delay: .44s; }
+
+    /* ─── NAV ────────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.6rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background .4s ease, padding .4s ease, box-shadow .4s ease;
+    }
+    .nav.scrolled {
+      background: rgba(245,237,224,.93);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 1rem 3rem;
+      box-shadow: 0 1px 0 rgba(45,125,123,.08);
+    }
+    .nav-logo { display: flex; align-items: center; gap: .6rem; }
+    .nav-logo-mark { width: 26px; height: 26px; color: var(--teal); }
+    .nav-logo-word {
+      font-family: var(--serif); font-size: 1.15rem;
+      font-weight: 400; letter-spacing: .02em; color: var(--text);
+    }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      font-size: .73rem; font-weight: 400;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--text-soft);
+      transition: color .2s ease;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-book {
+      display: inline-flex; align-items: center; gap: .35rem;
+      background: var(--teal); color: #fff;
+      font-size: .72rem; font-weight: 400;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .62rem 1.35rem; border-radius: 2rem;
+      transition: background .2s ease, transform .2s cubic-bezier(.16,1,.3,1),
+                  box-shadow .2s ease;
+      box-shadow: 0 3px 14px rgba(45,125,123,.28);
+    }
+    .nav-book:hover {
+      background: var(--teal-light);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 22px rgba(45,125,123,.38);
+    }
+    .nav-book:active { transform: translateY(0); }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1.1fr .9fr;
+      align-items: center; gap: 3rem;
+      padding: 0 3rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 72% 55%, rgba(45,125,123,.07) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 50% at 15% 85%, rgba(26,61,47,.05) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .hero-content { padding-top: 5rem; }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: .9rem;
+      margin-bottom: 1.8rem;
+    }
+    .hero-line { width: 28px; height: 1px; background: var(--teal); }
+    .hero-heading {
+      font-family: var(--serif);
+      font-size: clamp(5rem, 10vw, 9rem);
+      font-weight: 300; line-height: .9;
+      letter-spacing: -.025em;
+      color: var(--text);
+      margin-bottom: 1.6rem;
+    }
+    .hero-heading em { font-style: italic; color: var(--teal); }
+    .hero-sub {
+      font-size: 1rem; font-weight: 300;
+      line-height: 1.75; color: var(--text-soft);
+      max-width: 360px; margin-bottom: 2.4rem;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 1.4rem; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .45rem;
+      background: var(--teal); color: #fff;
+      font-size: .76rem; font-weight: 400;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: .9rem 1.7rem; border-radius: 2rem;
+      transition: background .22s ease, transform .22s cubic-bezier(.16,1,.3,1),
+                  box-shadow .22s ease;
+      box-shadow: 0 4px 18px rgba(45,125,123,.3);
+    }
+    .btn-primary:hover {
+      background: var(--teal-light); transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(45,125,123,.4);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-text {
+      display: inline-flex; align-items: center; gap: .45rem;
+      font-size: .76rem; font-weight: 400;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--text-soft);
+      padding-bottom: .1rem;
+      border-bottom: 1px solid rgba(45,125,123,.3);
+      transition: color .2s ease, border-color .2s ease;
+    }
+    .btn-text:hover { color: var(--teal); border-color: var(--teal); }
+    .hero-stats {
+      display: flex; gap: 2.2rem;
+      margin-top: 3rem; padding-top: 1.8rem;
+      border-top: 1px solid var(--border);
+    }
+    .hero-stat-n {
+      font-family: var(--serif);
+      font-size: 2rem; font-weight: 400;
+      color: var(--text); line-height: 1;
+    }
+    .hero-stat-l {
+      font-size: .68rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-top: .2rem;
+    }
+
+    /* Hero image column */
+    .hero-img-col {
+      position: relative; padding-top: 5rem;
+      display: flex; justify-content: center;
+    }
+    .hero-img-wrap {
+      width: 90%; max-width: 420px;
+      aspect-ratio: 3/4;
+      border-radius: 50% 50% 42% 42%;
+      overflow: hidden; position: relative;
+    }
+    .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-img-wrap::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 45%, rgba(26,61,47,.22) 100%);
+    }
+    .hero-chip {
+      position: absolute; top: 22%; left: -1.2rem;
+      background: #fff; border-radius: 1.5rem;
+      padding: .7rem 1.1rem;
+      display: flex; align-items: center; gap: .6rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07), 0 0 0 1px rgba(45,125,123,.07);
+    }
+    .hero-chip-dot {
+      width: 7px; height: 7px;
+      background: var(--teal); border-radius: 50%;
+      animation: pls 2.2s ease-in-out infinite;
+    }
+    @keyframes pls {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50%      { transform: scale(1.4); opacity: .6; }
+    }
+    .hero-chip-txt { font-size: .72rem; font-weight: 400; letter-spacing: .04em; }
+    .hero-next {
+      position: absolute; bottom: 16%; right: -1rem;
+      background: var(--teal); color: #fff;
+      border-radius: 1.4rem; padding: .8rem 1.2rem;
+      box-shadow: 0 4px 18px rgba(45,125,123,.4);
+    }
+    .hero-next-lbl {
+      font-size: .6rem; letter-spacing: .1em;
+      text-transform: uppercase; opacity: .65; margin-bottom: .2rem;
+    }
+    .hero-next-t { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; }
+
+    /* Scroll cue */
+    .scroll-cue {
+      position: absolute; bottom: 2.2rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+    }
+    .scroll-cue-bar {
+      width: 1px; height: 38px;
+      background: linear-gradient(to bottom, var(--teal), transparent);
+      animation: scb 1.9s ease-in-out infinite;
+    }
+    @keyframes scb {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      49%  { transform: scaleY(1); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+    .scroll-cue-txt {
+      font-size: .6rem; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--teal); opacity: .6;
+    }
+
+    /* ─── SECTION COMMON ─────────────────────────────────── */
+    section { padding: 6.5rem 3rem; }
+    .sec-label {
+      display: flex; align-items: center; gap: .7rem; margin-bottom: 1.4rem;
+    }
+    .sec-label-bar { width: 22px; height: 1px; background: var(--teal); }
+
+    /* ─── INTRO / ABOUT ──────────────────────────────────── */
+    .intro { background: var(--cream-mid); }
+    .intro-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+      align-items: center;
+    }
+    .intro-quote {
+      font-family: var(--serif); font-style: italic;
+      font-size: clamp(2rem, 3.2vw, 2.9rem);
+      font-weight: 300; line-height: 1.35; color: var(--text);
+    }
+    .intro-quote span { color: var(--teal); }
+    .intro-body { font-size: .97rem; line-height: 1.8; color: var(--text-soft); }
+    .intro-body p + p { margin-top: 1.1rem; }
+    .intro-dots { margin-top: 2rem; display: flex; flex-direction: column; gap: .75rem; }
+    .intro-dot {
+      display: flex; align-items: center; gap: .8rem;
+      font-size: .875rem; color: var(--text-soft);
+    }
+    .intro-dot-mark {
+      width: 6px; height: 6px;
+      background: var(--teal); border-radius: 50%; flex-shrink: 0;
+    }
+
+    /* ─── CLASSES ────────────────────────────────────────── */
+    .classes-hd {
+      max-width: 1100px; margin: 0 auto 3.5rem;
+      display: flex; justify-content: space-between; align-items: flex-end;
+    }
+    .classes-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.4rem;
+    }
+    .class-card {
+      border-radius: 1.4rem; overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 16px rgba(0,0,0,.04), 0 0 0 1px rgba(45,125,123,.06);
+      transition: transform .45s cubic-bezier(.16,1,.3,1), box-shadow .35s ease;
+    }
+    .class-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 40px rgba(0,0,0,.08), 0 0 0 1px rgba(45,125,123,.1);
+    }
+    .class-img {
+      aspect-ratio: 4/3; overflow: hidden; position: relative;
+    }
+    .class-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .7s cubic-bezier(.16,1,.3,1);
+    }
+    .class-card:hover .class-img img { transform: scale(1.05); }
+    .class-badge {
+      position: absolute; top: .9rem; left: .9rem;
+      background: rgba(245,237,224,.92); backdrop-filter: blur(6px);
+      padding: .28rem .75rem; border-radius: 1rem;
+      font-size: .62rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--teal); font-weight: 500;
+    }
+    .class-body { padding: 1.4rem; }
+    .class-title {
+      font-family: var(--serif); font-size: 1.45rem; font-weight: 400;
+      margin-bottom: .4rem; color: var(--text);
+    }
+    .class-desc {
+      font-size: .855rem; line-height: 1.65;
+      color: var(--text-soft); font-weight: 300; margin-bottom: 1.1rem;
+    }
+    .class-meta { display: flex; gap: .9rem; }
+    .class-meta-item {
+      display: flex; align-items: center; gap: .35rem;
+      font-size: .72rem; color: var(--text-muted);
+    }
+    .class-meta-item svg { color: var(--teal); opacity: .75; }
+
+    /* ─── SCHEDULE ───────────────────────────────────────── */
+    .schedule { background: var(--green); }
+    .schedule .label { color: rgba(200,222,221,.65); }
+    .schedule .sec-label-bar { background: rgba(200,222,221,.3); }
+    .sched-inner { max-width: 1000px; margin: 0 auto; }
+    .sched-heading {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300;
+      color: var(--cream); letter-spacing: -.02em; margin-bottom: 2.8rem;
+    }
+    .sched-heading em { font-style: italic; }
+    .day-tabs { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 2.2rem; }
+    .day-tab {
+      padding: .45rem .95rem; border-radius: 2rem;
+      font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(245,237,224,.45);
+      border: 1px solid rgba(200,222,221,.14);
+      transition: all .2s ease;
+    }
+    .day-tab:hover, .day-tab.active {
+      background: var(--teal); color: #fff; border-color: var(--teal);
+    }
+    .sched-list { display: flex; flex-direction: column; gap: .6rem; }
+    .sched-item {
+      display: grid; grid-template-columns: 90px 1fr auto;
+      align-items: center; gap: 2rem;
+      padding: 1.1rem 1.3rem; border-radius: .75rem;
+      border: 1px solid rgba(200,222,221,.09);
+      background: rgba(255,255,255,.03);
+      transition: background .2s ease, border-color .2s ease;
+    }
+    .sched-item:hover {
+      background: rgba(255,255,255,.06);
+      border-color: rgba(200,222,221,.18);
+    }
+    .sched-time {
+      font-family: var(--serif); font-size: 1.25rem;
+      font-weight: 300; color: var(--cream); line-height: 1;
+    }
+    .sched-ampm {
+      font-size: .65rem; color: rgba(245,237,224,.45);
+      letter-spacing: .08em; margin-top: .15rem;
+    }
+    .sched-name {
+      font-family: var(--serif); font-size: 1.05rem;
+      font-weight: 400; color: var(--cream); margin-bottom: .2rem;
+    }
+    .sched-meta { font-size: .72rem; color: rgba(200,222,221,.55); }
+    .lvl {
+      padding: .28rem .75rem; border-radius: 1rem;
+      font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 500;
+    }
+    .lvl-b { background: rgba(45,125,123,.3); color: var(--teal-light); }
+    .lvl-a { background: rgba(200,222,221,.1); color: rgba(200,222,221,.65); }
+    .lvl-i { background: rgba(26,61,47,.5); color: #a8c8b8; border: 1px solid rgba(168,200,184,.18); }
+
+    /* ─── PRICING ────────────────────────────────────────── */
+    .pricing-inner { max-width: 1000px; margin: 0 auto; }
+    .pricing-hd { text-align: center; margin-bottom: 4rem; }
+    .pricing-hd h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem,5vw,4rem); font-weight: 300;
+      letter-spacing: -.02em; margin-top: .5rem;
+    }
+    .pricing-hd h2 em { font-style: italic; color: var(--teal); }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.3rem;
+    }
+    .p-card {
+      border-radius: 1.4rem; padding: 2.2rem 1.8rem;
+      border: 1px solid var(--border); background: #fff;
+      position: relative;
+      transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;
+    }
+    .p-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 40px rgba(0,0,0,.07);
+    }
+    .p-card.feat { background: var(--teal); border-color: var(--teal); }
+    .p-card.feat * { color: #fff !important; }
+    .p-card.feat .p-divider { background: rgba(255,255,255,.18); }
+    .p-card.feat .p-check { background: rgba(255,255,255,.18); }
+    .p-card.feat .btn-p { background: #fff; color: var(--teal); border-color: #fff; }
+    .p-card.feat .btn-p:hover { background: rgba(255,255,255,.88); }
+    .p-badge {
+      position: absolute; top: -.7rem; left: 50%; transform: translateX(-50%);
+      background: var(--green); color: #fff;
+      font-size: .62rem; font-weight: 500;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .28rem .85rem; border-radius: 1rem; white-space: nowrap;
+    }
+    .p-label {
+      font-size: .68rem; font-weight: 500;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: .9rem;
+    }
+    .p-price { display: flex; align-items: flex-start; gap: .15rem; margin-bottom: .35rem; }
+    .p-cur {
+      font-family: var(--serif); font-size: 1.3rem;
+      font-weight: 300; color: var(--text); margin-top: .45rem;
+    }
+    .p-amt {
+      font-family: var(--serif); font-size: 3.3rem;
+      font-weight: 300; line-height: 1; color: var(--text);
+    }
+    .p-per {
+      font-size: .72rem; color: var(--text-muted);
+      align-self: flex-end; margin-bottom: .35rem;
+    }
+    .p-desc {
+      font-size: .85rem; line-height: 1.65; color: var(--text-soft);
+      font-weight: 300; margin-bottom: 1.3rem;
+    }
+    .p-divider { height: 1px; background: var(--border); margin-bottom: 1.3rem; }
+    .p-feats { list-style: none; display: flex; flex-direction: column; gap: .6rem; margin-bottom: 1.8rem; }
+    .p-feats li {
+      display: flex; align-items: center; gap: .65rem;
+      font-size: .85rem; color: var(--text-soft); font-weight: 300;
+    }
+    .p-check {
+      width: 15px; height: 15px; border-radius: 50%;
+      background: rgba(45,125,123,.1);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--teal); font-size: .6rem;
+    }
+    .btn-p {
+      display: block; width: 100%; text-align: center;
+      padding: .8rem; border-radius: 2rem;
+      font-size: .74rem; font-weight: 400;
+      letter-spacing: .1em; text-transform: uppercase;
+      border: 1.5px solid var(--teal); color: var(--teal);
+      background: transparent;
+      transition: all .22s ease;
+    }
+    .btn-p:hover { background: var(--teal); color: #fff; }
+
+    /* ─── TESTIMONIALS ───────────────────────────────────── */
+    .testimonials { background: var(--cream-mid); }
+    .test-inner { max-width: 1100px; margin: 0 auto; }
+    .test-hd { text-align: center; margin-bottom: 3.8rem; }
+    .test-hd h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem,5vw,4rem); font-weight: 300;
+      letter-spacing: -.02em; margin-top: .5rem;
+    }
+    .test-hd h2 em { font-style: italic; color: var(--teal); }
+    .test-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.8rem;
+    }
+    .test-card {
+      padding: 2.2rem 1.8rem; border-radius: 1.4rem;
+      background: #fff;
+      box-shadow: 0 2px 14px rgba(0,0,0,.04);
+    }
+    .test-q-mark {
+      font-family: var(--serif); font-size: 4.5rem;
+      line-height: .65; color: var(--teal-pale); margin-bottom: 1rem;
+      display: block;
+    }
+    .test-text {
+      font-family: var(--serif); font-style: italic;
+      font-size: 1.05rem; font-weight: 300;
+      line-height: 1.65; color: var(--text); margin-bottom: 1.4rem;
+    }
+    .test-author { display: flex; align-items: center; gap: .75rem; }
+    .test-av {
+      width: 38px; height: 38px; border-radius: 50%;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .test-name { font-size: .855rem; font-weight: 400; color: var(--text); }
+    .test-meta { font-size: .72rem; color: var(--text-muted); margin-top: .08rem; }
+
+    /* ─── STUDIO STRIP ───────────────────────────────────── */
+    .studio-strip {
+      padding: 0;
+      display: grid; grid-template-columns: repeat(4,1fr);
+      height: 360px;
+    }
+    .strip-item { overflow: hidden; position: relative; }
+    .strip-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .8s cubic-bezier(.16,1,.3,1);
+    }
+    .strip-item:hover img { transform: scale(1.07); }
+    .strip-item::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,61,47,.45) 0%, transparent 55%);
+    }
+
+    /* ─── INSTRUCTORS ────────────────────────────────────── */
+    .instructors-inner { max-width: 1100px; margin: 0 auto; }
+    .instructors-hd { margin-bottom: 3.2rem; }
+    .instructors-hd h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem,5vw,4rem); font-weight: 300;
+      letter-spacing: -.02em; margin-top: .5rem;
+    }
+    .instructors-hd h2 em { font-style: italic; color: var(--teal); }
+    .instructors-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 2.5rem;
+    }
+    .instructor { text-align: center; }
+    .instr-img {
+      width: 170px; height: 170px; border-radius: 50%;
+      overflow: hidden; margin: 0 auto 1.4rem;
+      border: 3px solid var(--cream-mid);
+      transition: border-color .3s ease;
+    }
+    .instructor:hover .instr-img { border-color: var(--teal-pale); }
+    .instr-img img { width: 100%; height: 100%; object-fit: cover; }
+    .instr-name {
+      font-family: var(--serif); font-size: 1.35rem; font-weight: 400;
+      color: var(--text); margin-bottom: .25rem;
+    }
+    .instr-role {
+      font-size: .7rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: .7rem;
+    }
+    .instr-bio {
+      font-size: .855rem; line-height: 1.65;
+      color: var(--text-soft); font-weight: 300;
+    }
+
+    /* ─── CTA ────────────────────────────────────────────── */
+    .cta-sec {
+      background: var(--green);
+      text-align: center;
+      padding: 9rem 3rem;
+      position: relative; overflow: hidden;
+    }
+    .cta-sec::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 60%, rgba(45,125,123,.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cta-eyebrow {
+      font-size: .68rem; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--teal-light);
+      opacity: .8; margin-bottom: 1.4rem;
+    }
+    .cta-heading {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 300;
+      line-height: .95; letter-spacing: -.025em;
+      color: var(--cream); margin-bottom: 1.3rem;
+    }
+    .cta-heading em { font-style: italic; color: var(--teal-light); }
+    .cta-sub {
+      font-size: .97rem; color: rgba(200,222,221,.55);
+      font-weight: 300; max-width: 380px;
+      margin: 0 auto 3rem;
+    }
+    .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-cta {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--cream); color: var(--green);
+      font-size: .76rem; font-weight: 500;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .95rem 1.9rem; border-radius: 2rem;
+      transition: background .22s ease, transform .22s cubic-bezier(.16,1,.3,1),
+                  box-shadow .22s ease;
+      box-shadow: 0 4px 22px rgba(0,0,0,.22);
+    }
+    .btn-cta:hover {
+      background: #fff; transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,.3);
+    }
+    .btn-cta:active { transform: translateY(0); }
+    .btn-cta-ghost {
+      display: inline-flex; align-items: center; gap: .45rem;
+      color: rgba(200,222,221,.6);
+      font-size: .76rem; font-weight: 400;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: .95rem .4rem;
+      border-bottom: 1px solid rgba(200,222,221,.2);
+      transition: color .2s ease, border-color .2s ease;
+    }
+    .btn-cta-ghost:hover {
+      color: rgba(200,222,221,.9);
+      border-color: rgba(200,222,221,.45);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer { background: var(--cream-dark); padding: 4rem 3rem 2.2rem; }
+    .foot-inner { max-width: 1200px; margin: 0 auto; }
+    .foot-top {
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 4rem; margin-bottom: 2.8rem;
+      padding-bottom: 2.8rem;
+      border-bottom: 1px solid rgba(45,125,123,.1);
+    }
+    .foot-brand-txt {
+      font-size: .875rem; line-height: 1.75;
+      color: var(--text-soft); font-weight: 300;
+      margin: .9rem 0 1.4rem;
+    }
+    .foot-socials { display: flex; gap: .7rem; }
+    .foot-soc {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 1px solid rgba(45,125,123,.2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal);
+      transition: background .2s ease, border-color .2s ease, color .2s ease;
+    }
+    .foot-soc:hover { background: var(--teal); border-color: var(--teal); color: #fff; }
+    .foot-col-ttl {
+      font-size: .68rem; font-weight: 500;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 1.1rem;
+    }
+    .foot-links { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .foot-links a {
+      font-size: .875rem; color: var(--text-soft);
+      font-weight: 300; transition: color .2s ease;
+    }
+    .foot-links a:hover { color: var(--teal); }
+    .foot-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: .73rem; color: var(--text-muted);
+    }
+    .foot-bottom a {
+      font-size: .73rem; color: var(--text-muted);
+      transition: color .2s ease;
+    }
+    .foot-bottom a:hover { color: var(--teal); }
+    .foot-bottom-links { display: flex; gap: 1.8rem; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <!-- Concept 04 "The Mark" — two anchors, one arc -->
+    <svg class="nav-logo-mark" viewBox="0 0 32 28" fill="none">
+      <circle cx="10" cy="4" r="2.2" fill="currentColor"/>
+      <circle cx="22" cy="4" r="2.2" fill="currentColor"/>
+      <line x1="10" y1="6.5" x2="10" y2="14" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2 2.2" stroke-linecap="round"/>
+      <line x1="22" y1="6.5" x2="22" y2="14" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2 2.2" stroke-linecap="round"/>
+      <path d="M10 14 Q16 25 22 14" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-logo-word"><em style="font-style:italic;">Aerial Yoga</em></span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <a href="#booking" class="nav-book">
+    Book a class
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+      <path d="M2 6h8M6.5 2.5 10 6l-3.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-eyebrow reveal">
+      <span class="hero-line"></span>
+      <span class="label">Playful movement · Powerful connection</span>
+    </div>
+
+    <h1 class="hero-heading reveal d1">
+      Float<br>
+      <em>freely.</em>
+    </h1>
+
+    <p class="hero-sub reveal d2">
+      Yoga in silk hammocks — decompressing the spine, freeing the mind, and bringing genuine joy to every class. Warm, welcoming, and open to all.
+    </p>
+
+    <div class="hero-actions reveal d3">
+      <a href="#classes" class="btn-primary">
+        Explore classes
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <path d="M2 6.5h9M7.5 3 11 6.5 7.5 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="#about" class="btn-text">
+        How it works
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <path d="M2 6.5h9M7.5 3 11 6.5 7.5 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="hero-stats reveal d4">
+      <div>
+        <div class="hero-stat-n">6+</div>
+        <div class="hero-stat-l">Class types</div>
+      </div>
+      <div>
+        <div class="hero-stat-n">All</div>
+        <div class="hero-stat-l">Levels welcome</div>
+      </div>
+      <div>
+        <div class="hero-stat-n">Small</div>
+        <div class="hero-stat-l">Group sizes</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-img-col">
+    <div class="hero-img-wrap reveal-fade">
+      <img src="https://placehold.co/420x560/beccc4/1e4a38?text=Aerial+Silk" alt="Aerial yoga in silk hammock">
+    </div>
+    <div class="hero-chip reveal d2">
+      <div class="hero-chip-dot"></div>
+      <span class="hero-chip-txt">Classes now open</span>
+    </div>
+    <div class="hero-next reveal d3">
+      <div class="hero-next-lbl">Next class</div>
+      <div class="hero-next-t">Tue 10am</div>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <div class="scroll-cue-bar"></div>
+    <span class="scroll-cue-txt">Scroll</span>
+  </div>
+</section>
+
+<!-- ═══════════════ INTRO ═══════════════ -->
+<section class="intro" id="about">
+  <div class="intro-inner">
+    <div>
+      <div class="sec-label reveal">
+        <span class="sec-label-bar"></span>
+        <span class="label">What is aerial yoga</span>
+      </div>
+      <p class="intro-quote reveal d1">
+        "Suspended in silk,<br>you'll find a <span>new freedom</span><br>in your practice."
+      </p>
+    </div>
+
+    <div>
+      <div class="intro-body reveal d1">
+        <p>Aerial yoga uses a soft fabric hammock suspended from the ceiling to support your body weight. It allows deeper stretches, full spinal decompression, and movements that simply aren't possible on a mat.</p>
+        <p>Whether you're a complete beginner or an experienced yogi looking for something new — the silk meets you exactly where you are.</p>
+      </div>
+
+      <div class="intro-dots reveal d2">
+        <div class="intro-dot"><div class="intro-dot-mark"></div>Spinal decompression &amp; joint relief</div>
+        <div class="intro-dot"><div class="intro-dot-mark"></div>Core strength without strain</div>
+        <div class="intro-dot"><div class="intro-dot-mark"></div>Mindfulness through movement</div>
+        <div class="intro-dot"><div class="intro-dot-mark"></div>Genuinely playful &amp; joyful</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CLASSES ═══════════════ -->
+<section id="classes" style="background: var(--cream);">
+  <div class="classes-hd reveal">
+    <div>
+      <div class="sec-label">
+        <span class="sec-label-bar"></span>
+        <span class="label">What we offer</span>
+      </div>
+      <h2 style="font-family:var(--serif); font-size:clamp(2.5rem,5vw,4rem); font-weight:300; letter-spacing:-.02em; margin-top:.4rem;">
+        Find your<br><em style="font-style:italic; color:var(--teal);">practice</em>
+      </h2>
+    </div>
+    <a href="#schedule" class="btn-text">View full schedule →</a>
+  </div>
+
+  <div class="classes-grid">
+    <div class="class-card reveal d1">
+      <div class="class-img">
+        <img src="https://placehold.co/400x300/c4d4c0/2a5040?text=Beginners+Flow" alt="Beginners Flow">
+        <span class="class-badge">Beginner</span>
+      </div>
+      <div class="class-body">
+        <h3 class="class-title">Beginners Flow</h3>
+        <p class="class-desc">Your gentle introduction to the silk. Hammock basics, simple inversions, and restorative poses. No experience needed — just curiosity.</p>
+        <div class="class-meta">
+          <div class="class-meta-item">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M7 4v3.5l2 1.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            60 min
+          </div>
+          <div class="class-meta-item">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1.5a2.3 2.3 0 100 4.6 2.3 2.3 0 000-4.6zM2.5 12.5c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Max 6
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="class-card reveal d2">
+      <div class="class-img">
+        <img src="https://placehold.co/400x300/b8cac0/1e4032?text=Silk+Restore" alt="Silk Restore">
+        <span class="class-badge">All levels</span>
+      </div>
+      <div class="class-body">
+        <h3 class="class-title">Silk Restore</h3>
+        <p class="class-desc">Deep relaxation and release. The hammock acts as a gentle traction device, letting gravity decompress your spine and quiet the nervous system.</p>
+        <div class="class-meta">
+          <div class="class-meta-item">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M7 4v3.5l2 1.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            75 min
+          </div>
+          <div class="class-meta-item">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1.5a2.3 2.3 0 100 4.6 2.3 2.3 0 000-4.6zM2.5 12.5c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Max 8
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="class-card reveal d3">
+      <div class="class-img">
+        <img src="https://placehold.co/400x300/a8c0b0/1a4035?text=Aerial+Flow" alt="Aerial Flow">
+        <span class="class-badge">Intermediate</span>
+      </div>
+      <div class="class-body">
+        <h3 class="class-title">Aerial Flow</h3>
+        <p class="class-desc">Dynamic sequencing combining yoga with aerial elements. Building strength, flexibility, and playful inversions as your practice deepens.</p>
+        <div class="class-meta">
+          <div class="class-meta-item">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M7 4v3.5l2 1.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            60 min
+          </div>
+          <div class="class-meta-item">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1.5a2.3 2.3 0 100 4.6 2.3 2.3 0 000-4.6zM2.5 12.5c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Max 6
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SCHEDULE ═══════════════ -->
+<section class="schedule" id="schedule">
+  <div class="sched-inner">
+    <div class="sec-label reveal">
+      <span class="sec-label-bar"></span>
+      <span class="label">Weekly schedule</span>
+    </div>
+
+    <h2 class="sched-heading reveal d1">This week's<br><em>classes</em></h2>
+
+    <div class="day-tabs reveal d2">
+      <button class="day-tab active" onclick="setDay(this,'mon')">Mon</button>
+      <button class="day-tab" onclick="setDay(this,'tue')">Tue</button>
+      <button class="day-tab" onclick="setDay(this,'wed')">Wed</button>
+      <button class="day-tab" onclick="setDay(this,'thu')">Thu</button>
+      <button class="day-tab" onclick="setDay(this,'fri')">Fri</button>
+      <button class="day-tab" onclick="setDay(this,'sat')">Sat</button>
+      <button class="day-tab" onclick="setDay(this,'sun')">Sun</button>
+    </div>
+
+    <div class="sched-list reveal d3" id="sched-list">
+      <!-- MON -->
+      <div class="sched-item" data-day="mon">
+        <div><div class="sched-time">9:00</div><div class="sched-ampm">AM</div></div>
+        <div><div class="sched-name">Beginners Flow</div><div class="sched-meta">with Sarah · 60 min · 3 spots left</div></div>
+        <span class="lvl lvl-b">Beginner</span>
+      </div>
+      <div class="sched-item" data-day="mon">
+        <div><div class="sched-time">11:30</div><div class="sched-ampm">AM</div></div>
+        <div><div class="sched-name">Silk Restore</div><div class="sched-meta">with Maya · 75 min · 5 spots left</div></div>
+        <span class="lvl lvl-a">All levels</span>
+      </div>
+      <div class="sched-item" data-day="mon">
+        <div><div class="sched-time">6:30</div><div class="sched-ampm">PM</div></div>
+        <div><div class="sched-name">Aerial Flow</div><div class="sched-meta">with Jena · 60 min · 2 spots left</div></div>
+        <span class="lvl lvl-i">Intermediate</span>
+      </div>
+      <!-- TUE -->
+      <div class="sched-item" data-day="tue" style="display:none">
+        <div><div class="sched-time">10:00</div><div class="sched-ampm">AM</div></div>
+        <div><div class="sched-name">Beginners Flow</div><div class="sched-meta">with Sarah · 60 min · 4 spots left</div></div>
+        <span class="lvl lvl-b">Beginner</span>
+      </div>
+      <div class="sched-item" data-day="tue" style="display:none">
+        <div><div class="sched-time">7:00</div><div class="sched-ampm">PM</div></div>
+        <div><div class="sched-name">Aerial Flow</div><div class="sched-meta">with Jena · 60 min · Full</div></div>
+        <span class="lvl lvl-i">Intermediate</span>
+      </div>
+      <!-- WED -->
+      <div class="sched-item" data-day="wed" style="display:none">
+        <div><div class="sched-time">9:30</div><div class="sched-ampm">AM</div></div>
+        <div><div class="sched-name">Silk Restore</div><div class="sched-meta">with Maya · 75 min · 6 spots left</div></div>
+        <span class="lvl lvl-a">All levels</span>
+      </div>
+      <!-- THU -->
+      <div class="sched-item" data-day="thu" style="display:none">
+        <div><div class="sched-time">10:00</div><div class="sched-ampm">AM</div></div>
+        <div><div class="sched-name">Beginners Flow</div><div class="sched-meta">with Sarah · 60 min · 2 spots left</div></div>
+        <span class="lvl lvl-b">Beginner</span>
+      </div>
+      <div class="sched-item" data-day="thu" style="display:none">
+        <div><div class="sched-time">6:00</div><div class="sched-ampm">PM</div></div>
+        <div><div class="sched-name">Aerial Flow</div><div class="sched-meta">with Jena · 60 min · 3 spots left</div></div>
+        <span class="lvl lvl-i">Intermediate</span>
+      </div>
+      <!-- FRI -->
+      <div class="sched-item" data-day="fri" style="display:none">
+        <div><div class="sched-time">9:00</div><div class="sched-ampm">AM</div></div>
+        <div><div class="sched-name">Silk Restore</div><div class="sched-meta">with Maya · 75 min · 4 spots left</div></div>
+        <span class="lvl lvl-a">All levels</span>
+      </div>
+      <!-- SAT -->
+      <div class="sched-item" data-day="sat" style="display:none">
+        <div><div class="sched-time">9:00</div><div class="sched-ampm">AM</div></div>
+        <div><div class="sched-name">Beginners Flow</div><div class="sched-meta">with Sarah · 60 min · 5 spots left</div></div>
+        <span class="lvl lvl-b">Beginner</span>
+      </div>
+      <div class="sched-item" data-day="sat" style="display:none">
+        <div><div class="sched-time">11:00</div><div class="sched-ampm">AM</div></div>
+        <div><div class="sched-name">Aerial Flow</div><div class="sched-meta">with Jena · 60 min · 1 spot left</div></div>
+        <span class="lvl lvl-i">Intermediate</span>
+      </div>
+      <!-- SUN -->
+      <div class="sched-item" data-day="sun" style="display:none">
+        <div><div class="sched-time">10:00</div><div class="sched-ampm">AM</div></div>
+        <div><div class="sched-name">Silk Restore</div><div class="sched-meta">with Maya · 75 min · 7 spots left</div></div>
+        <span class="lvl lvl-a">All levels</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRICING ═══════════════ -->
+<section id="pricing" style="background:var(--cream);">
+  <div class="pricing-inner">
+    <div class="pricing-hd reveal">
+      <div class="sec-label" style="justify-content:center; margin-bottom:1rem;">
+        <span class="sec-label-bar"></span>
+        <span class="label">Membership &amp; pricing</span>
+        <span class="sec-label-bar"></span>
+      </div>
+      <h2>Simple,<br><em>honest</em> pricing</h2>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="p-card reveal d1">
+        <div class="p-label">Drop-in</div>
+        <div class="p-price">
+          <span class="p-cur">£</span>
+          <span class="p-amt">22</span>
+          <span class="p-per">per class</span>
+        </div>
+        <p class="p-desc">Perfect for trying it out or visiting occasionally. No commitment needed.</p>
+        <div class="p-divider"></div>
+        <ul class="p-feats">
+          <li><span class="p-check">✓</span>One class</li>
+          <li><span class="p-check">✓</span>All class types</li>
+          <li><span class="p-check">✓</span>Equipment provided</li>
+          <li><span class="p-check">✓</span>Online booking</li>
+        </ul>
+        <a href="#booking" class="btn-p">Book now</a>
+      </div>
+
+      <div class="p-card feat reveal d2">
+        <span class="p-badge">Most popular</span>
+        <div class="p-label">Intro Pack</div>
+        <div class="p-price">
+          <span class="p-cur">£</span>
+          <span class="p-amt">55</span>
+          <span class="p-per">3 classes</span>
+        </div>
+        <p class="p-desc">The best way to start. Three classes to explore, get comfortable, and fall in love with the silk.</p>
+        <div class="p-divider"></div>
+        <ul class="p-feats">
+          <li><span class="p-check">✓</span>3 classes, any type</li>
+          <li><span class="p-check">✓</span>New student welcome</li>
+          <li><span class="p-check">✓</span>Equipment provided</li>
+          <li><span class="p-check">✓</span>Valid for 3 months</li>
+        </ul>
+        <a href="#booking" class="btn-p">Get started</a>
+      </div>
+
+      <div class="p-card reveal d3">
+        <div class="p-label">Monthly Unlimited</div>
+        <div class="p-price">
+          <span class="p-cur">£</span>
+          <span class="p-amt">110</span>
+          <span class="p-per">per month</span>
+        </div>
+        <p class="p-desc">For the dedicated practitioner. Unlimited classes, priority booking, and community events.</p>
+        <div class="p-divider"></div>
+        <ul class="p-feats">
+          <li><span class="p-check">✓</span>Unlimited classes</li>
+          <li><span class="p-check">✓</span>Priority booking</li>
+          <li><span class="p-check">✓</span>Community workshops</li>
+          <li><span class="p-check">✓</span>Cancel anytime</li>
+        </ul>
+        <a href="#booking" class="btn-p">Join monthly</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TESTIMONIALS ═══════════════ -->
+<section class="testimonials">
+  <div class="test-inner">
+    <div class="test-hd reveal">
+      <div class="sec-label" style="justify-content:center; margin-bottom:1rem;">
+        <span class="sec-label-bar"></span>
+        <span class="label">Student stories</span>
+        <span class="sec-label-bar"></span>
+      </div>
+      <h2>What our<br><em>students say</em></h2>
+    </div>
+
+    <div class="test-grid">
+      <div class="test-card reveal d1">
+        <span class="test-q-mark">"</span>
+        <p class="test-text">I'd never done yoga before and was nervous. By the end of the first class I was hanging upside down and laughing. It's completely changed how I feel in my body.</p>
+        <div class="test-author">
+          <div class="test-av"><img src="https://placehold.co/38x38/d4c8be/7a6860?text=E" alt="Emma"></div>
+          <div><div class="test-name">Emma R.</div><div class="test-meta">Student for 8 months</div></div>
+        </div>
+      </div>
+
+      <div class="test-card reveal d2">
+        <span class="test-q-mark">"</span>
+        <p class="test-text">My back pain has almost completely gone since starting Silk Restore. The instructors are extraordinary — knowledgeable, warm, and genuinely caring.</p>
+        <div class="test-author">
+          <div class="test-av"><img src="https://placehold.co/38x38/c8d4c4/5a7060?text=J" alt="James"></div>
+          <div><div class="test-name">James T.</div><div class="test-meta">Student for 1 year</div></div>
+        </div>
+      </div>
+
+      <div class="test-card reveal d3">
+        <span class="test-q-mark">"</span>
+        <p class="test-text">Not at all what I expected yoga to be. It's playful, challenging, and meditative all at once. The small class sizes make such a difference.</p>
+        <div class="test-author">
+          <div class="test-av"><img src="https://placehold.co/38x38/ccc0c8/6a6080?text=L" alt="Lucia"></div>
+          <div><div class="test-name">Lucia M.</div><div class="test-meta">Student for 4 months</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ STUDIO STRIP ═══════════════ -->
+<div class="studio-strip">
+  <div class="strip-item"><img src="https://placehold.co/400x360/b0c4bc/1e4038?text=Studio+Space" alt="Studio"></div>
+  <div class="strip-item"><img src="https://placehold.co/400x360/bcccc4/1e4036?text=Silk+Hammocks" alt="Hammocks"></div>
+  <div class="strip-item"><img src="https://placehold.co/400x360/a8bcb4/1a3c34?text=The+Practice" alt="Practice"></div>
+  <div class="strip-item"><img src="https://placehold.co/400x360/a0b8b0/183830?text=Community" alt="Community"></div>
+</div>
+
+<!-- ═══════════════ INSTRUCTORS ═══════════════ -->
+<section style="background:var(--cream);">
+  <div class="instructors-inner">
+    <div class="instructors-hd reveal">
+      <div class="sec-label" style="margin-bottom:1rem;">
+        <span class="sec-label-bar"></span>
+        <span class="label">Our teachers</span>
+      </div>
+      <h2>Meet the<br><em>instructors</em></h2>
+    </div>
+
+    <div class="instructors-grid">
+      <div class="instructor reveal d1">
+        <div class="instr-img"><img src="https://placehold.co/170x170/c0ccc4/3a5448?text=S" alt="Sarah"></div>
+        <div class="instr-name">Sarah Chen</div>
+        <div class="instr-role">Lead Instructor</div>
+        <p class="instr-bio">10 years in aerial arts, 500hr yoga teacher training. Sarah's classes are grounding and joyful — expect to laugh as much as you breathe.</p>
+      </div>
+
+      <div class="instructor reveal d2">
+        <div class="instr-img"><img src="https://placehold.co/170x170/b8c8c4/2a4840?text=M" alt="Maya"></div>
+        <div class="instr-name">Maya Osei</div>
+        <div class="instr-role">Restorative Specialist</div>
+        <p class="instr-bio">A bodyworker and yoga therapist, Maya brings deep anatomical knowledge to every class. Her Silk Restore sessions are a reset button for the nervous system.</p>
+      </div>
+
+      <div class="instructor reveal d3">
+        <div class="instr-img"><img src="https://placehold.co/170x170/b8c4bc/384838?text=J" alt="Jena"></div>
+        <div class="instr-name">Jena Park</div>
+        <div class="instr-role">Aerial Flow</div>
+        <p class="instr-bio">Former circus performer, Jena brings technical precision and infectious playfulness to intermediate classes. She'll take you further than you thought possible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CTA ═══════════════ -->
+<section class="cta-sec" id="booking">
+  <div class="cta-eyebrow reveal">First class free when you join with the intro pack</div>
+  <h2 class="cta-heading reveal d1">Ready to<br><em>float free?</em></h2>
+  <p class="cta-sub reveal d2">Your first class, no experience needed. Just arrive — we'll handle the rest.</p>
+  <div class="cta-actions reveal d3">
+    <a href="#" class="btn-cta">
+      Book your first class
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <a href="#classes" class="btn-cta-ghost">
+      Explore classes →
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer id="contact">
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <div class="nav-logo">
+          <svg class="nav-logo-mark" viewBox="0 0 32 28" fill="none" style="color:var(--teal)">
+            <circle cx="10" cy="4" r="2.2" fill="currentColor"/>
+            <circle cx="22" cy="4" r="2.2" fill="currentColor"/>
+            <line x1="10" y1="6.5" x2="10" y2="14" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2 2.2" stroke-linecap="round"/>
+            <line x1="22" y1="6.5" x2="22" y2="14" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2 2.2" stroke-linecap="round"/>
+            <path d="M10 14 Q16 25 22 14" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+          </svg>
+          <span class="nav-logo-word"><em style="font-style:italic;">Aerial Yoga</em></span>
+        </div>
+        <p class="foot-brand-txt">Playful movement. Powerful connection. A warm studio where the silk meets stillness — open to every body, every level.</p>
+        <div class="foot-socials">
+          <a href="#" class="foot-soc" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          </a>
+          <a href="#" class="foot-soc" aria-label="Facebook">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M17 2h-3a5 5 0 00-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#" class="foot-soc" aria-label="Email">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 7l10 7 10-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="foot-col-ttl">Classes</div>
+        <ul class="foot-links">
+          <li><a href="#">Beginners Flow</a></li>
+          <li><a href="#">Silk Restore</a></li>
+          <li><a href="#">Aerial Flow</a></li>
+          <li><a href="#">Private sessions</a></li>
+          <li><a href="#">Workshops</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="foot-col-ttl">Studio</div>
+        <ul class="foot-links">
+          <li><a href="#">About us</a></li>
+          <li><a href="#">Our instructors</a></li>
+          <li><a href="#">The space</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Gift cards</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="foot-col-ttl">Visit us</div>
+        <ul class="foot-links">
+          <li><a href="#">123 Studio Lane</a></li>
+          <li><a href="#">London, E1 6RF</a></li>
+          <li style="margin-top:.7rem"><a href="mailto:hello@aerialstudio.co">hello@aerialstudio.co</a></li>
+          <li><a href="tel:+442012345678">+44 20 1234 5678</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© 2024 Aerial Studio. All rights reserved.</span>
+      <div class="foot-bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: .1, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-fade').forEach(el => io.observe(el));
+
+  // Hero elements trigger immediately
+  setTimeout(() => {
+    document.querySelectorAll('.hero .reveal, .hero .reveal-fade').forEach(el => el.classList.add('in'));
+  }, 80);
+
+  // Schedule day tabs
+  function setDay(btn, day) {
+    document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.sched-item').forEach(item => {
+      item.style.display = item.dataset.day === day ? 'grid' : 'none';
+    });
+  }
+</script>
+</body>
+</html>

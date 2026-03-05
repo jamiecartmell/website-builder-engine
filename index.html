@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limitless Design — Digital Design Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Poppins:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blue: #0138ea;
+      --blue-bright: #0747ff;
+      --purple: #4d48ad;
+      --dark-blue: #01122c;
+      --light-blue: #4c87f5;
+      --grey: #e4e5f8;
+      --bg: #060b1e;
+      --bg-1: #091228;
+      --bg-2: #0c1632;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: #fff;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+    }
+
+    /* ─── Grain Overlay ─── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.025em;
+      border-radius: 100px;
+      padding: 12px 26px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.18s cubic-bezier(.34, 1.56, .64, 1), box-shadow 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .btn:active {
+      transform: scale(0.97) !important;
+    }
+
+    .btn-primary {
+      background: linear-gradient(130deg, var(--blue-bright) 0%, var(--blue) 100%);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(7, 71, 255, 0.45), 0 0 0 0 rgba(7, 71, 255, 0);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(7, 71, 255, 0.65);
+    }
+
+    .btn-primary:focus-visible {
+      outline: 2px solid var(--light-blue);
+      outline-offset: 3px;
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .btn-ghost:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .btn-ghost:focus-visible {
+      outline: 2px solid var(--light-blue);
+      outline-offset: 3px;
+    }
+
+    /* ─── Nav ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 900;
+      padding: 22px 0;
+      transition: background 0.35s ease, padding 0.35s ease, border-color 0.35s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.stuck {
+      background: rgba(6, 11, 30, 0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 14px 0;
+      border-bottom-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo img {
+      height: 34px;
+      width: auto;
+    }
+
+    .nav-logo-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      min-height: 100svh;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 48px;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 130px 40px 80px;
+      overflow: visible;
+    }
+
+    .hero-orb {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(90px);
+    }
+
+    .orb-a {
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(1, 56, 234, 0.55) 0%, transparent 68%);
+      top: -220px;
+      right: -180px;
+      animation: drift 12s ease-in-out infinite;
+    }
+
+    .orb-b {
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(77, 72, 173, 0.5) 0%, transparent 68%);
+      bottom: 0;
+      left: -100px;
+      animation: drift 10s ease-in-out infinite reverse;
+      animation-delay: -4s;
+    }
+
+    .orb-c {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(7, 71, 255, 0.3) 0%, transparent 68%);
+      top: 45%;
+      left: 35%;
+      animation: drift 8s ease-in-out infinite;
+      animation-delay: -7s;
+    }
+
+    @keyframes drift {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      33% {
+        transform: translate(18px, -22px) scale(1.04);
+      }
+
+      66% {
+        transform: translate(-12px, 14px) scale(0.97);
+      }
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(1, 56, 234, 0.12);
+      border: 1px solid rgba(1, 56, 234, 0.28);
+      border-radius: 100px;
+      padding: 5px 14px 5px 8px;
+      margin-bottom: 32px;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--light-blue);
+      box-shadow: 0 0 8px var(--light-blue);
+      animation: blink 2.2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.35;
+      }
+    }
+
+    .hero-badge span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--light-blue);
+    }
+
+    .hero-h1 {
+      font-size: clamp(44px, 5.5vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      margin-bottom: 24px;
+    }
+
+    .grad-text {
+      background: linear-gradient(120deg, var(--light-blue) 0%, var(--blue) 45%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.55);
+      max-width: 460px;
+      margin-bottom: 40px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 56px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 44px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .stat-n {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      background: linear-gradient(160deg, #fff 30%, rgba(255, 255, 255, 0.5));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-l {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.38);
+      margin-top: 2px;
+    }
+
+    /* Hero right card */
+    .hero-right {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .hero-card-img-wrap {
+      height: 290px;
+      background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(1, 56, 234, 0.18) 0%, transparent 65%);
+    }
+
+    .hero-card-img-wrap img {
+      width: 58%;
+      filter: drop-shadow(0 16px 48px rgba(7, 71, 255, 0.55));
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-body {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hero-card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .hero-card-pill {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.45);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 4px 11px;
+      border-radius: 100px;
+    }
+
+    /* Floating chips */
+    .chip {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 10px 14px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chip-a {
+      top: -18px;
+      right: -24px;
+      animation: chipFloat 6.5s ease-in-out infinite;
+    }
+
+    .chip-b {
+      bottom: 50px;
+      left: -32px;
+      animation: chipFloat 7.5s ease-in-out infinite;
+      animation-delay: -2.5s;
+    }
+
+    @keyframes chipFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-9px);
+      }
+    }
+
+    .chip-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .chip-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .chip-sub {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    /* ─── Section Commons ─── */
+    .wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .sec {
+      padding: 110px 0;
+    }
+
+    .sec-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--light-blue);
+      margin-bottom: 14px;
+    }
+
+    .sec-tag::before {
+      content: '';
+      width: 22px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue-bright), var(--blue));
+      border-radius: 2px;
+    }
+
+    .sec-h {
+      font-size: clamp(30px, 3.8vw, 50px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+
+    .sec-sub {
+      font-size: 15.5px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.5);
+      max-width: 500px;
+    }
+
+    .sec-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 64px;
+    }
+
+    /* ─── Services ─── */
+    .services-bg {
+      background: var(--bg-1);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .srv-card {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.055);
+      border-radius: 20px;
+      padding: 36px 30px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s cubic-bezier(.34, 1.56, .64, 1), border-color 0.25s ease, background 0.25s ease;
+      cursor: default;
+    }
+
+    .srv-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(1, 56, 234, 0.7), transparent);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .srv-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(1, 56, 234, 0.22);
+      background: rgba(1, 56, 234, 0.04);
+    }
+
+    .srv-card:hover::after {
+      opacity: 1;
+    }
+
+    .srv-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, rgba(1, 56, 234, 0.18), rgba(77, 72, 173, 0.18));
+      border: 1px solid rgba(1, 56, 234, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 22px;
+    }
+
+    .srv-name {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .srv-desc {
+      font-size: 13.5px;
+      line-height: 1.72;
+      color: rgba(255, 255, 255, 0.48);
+    }
+
+    /* ─── Work ─── */
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 18px;
+    }
+
+    .work-card {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .work-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.55s cubic-bezier(.25, .46, .45, .94);
+    }
+
+    .work-card:hover img {
+      transform: scale(1.06);
+    }
+
+    /* CSS-based portfolio preview backgrounds */
+    .work-bg {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.55s cubic-bezier(.25, .46, .45, .94);
+    }
+
+    .work-card:hover .work-bg {
+      transform: scale(1.04);
+    }
+
+    .work-bg-nexora {
+      background:
+        radial-gradient(ellipse at 70% 30%, rgba(7, 71, 255, 0.7) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 80%, rgba(77, 72, 173, 0.6) 0%, transparent 50%),
+        linear-gradient(135deg, #060f3a 0%, #0a1850 50%, #0d1f66 100%);
+    }
+
+    .work-bg-vela {
+      background:
+        radial-gradient(ellipse at 30% 40%, rgba(77, 72, 173, 0.7) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 70%, rgba(1, 56, 234, 0.5) 0%, transparent 50%),
+        linear-gradient(135deg, #100a3e 0%, #180f50 50%, #1a1260 100%);
+    }
+
+    .work-bg-arch {
+      background:
+        radial-gradient(ellipse at 60% 25%, rgba(76, 135, 245, 0.65) 0%, transparent 55%),
+        radial-gradient(ellipse at 15% 75%, rgba(1, 56, 234, 0.55) 0%, transparent 50%),
+        linear-gradient(135deg, #060f2e 0%, #091540 50%, #0b1a55 100%);
+    }
+
+    .work-label-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(18px, 2.5vw, 36px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: rgba(255, 255, 255, 0.08);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .work-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(6, 11, 30, 0.95) 0%, rgba(6, 11, 30, 0.35) 55%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 28px;
+    }
+
+    .work-color-layer {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(1, 56, 234, 0.14), rgba(77, 72, 173, 0.14));
+      mix-blend-mode: multiply;
+    }
+
+    .work-tag {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--light-blue);
+      background: rgba(1, 56, 234, 0.22);
+      border: 1px solid rgba(1, 56, 234, 0.35);
+      padding: 4px 11px;
+      border-radius: 100px;
+      margin-bottom: 9px;
+    }
+
+    .work-title {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .work-featured {
+      grid-column: 1 / -1;
+      aspect-ratio: 21/8;
+    }
+
+    .work-half {
+      aspect-ratio: 4/3;
+    }
+
+    /* ─── Process ─── */
+    .process-bg {
+      background: var(--bg-1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .process-glow {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(1, 56, 234, 0.07) 0%, transparent 65%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      position: relative;
+      margin-top: 72px;
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 27px;
+      left: calc(12.5% + 14px);
+      right: calc(12.5% + 14px);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(1, 56, 234, 0.5), rgba(77, 72, 173, 0.5), transparent);
+    }
+
+    .p-step {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .p-num {
+      width: 54px;
+      height: 54px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, rgba(1, 56, 234, 0.14), rgba(77, 72, 173, 0.14));
+      border: 1px solid rgba(1, 56, 234, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--light-blue);
+      margin-bottom: 26px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .p-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .p-desc {
+      font-size: 13.5px;
+      line-height: 1.72;
+      color: rgba(255, 255, 255, 0.47);
+    }
+
+    /* ─── CTA Banner ─── */
+    .cta-sec {
+      padding: 110px 0;
+    }
+
+    .cta-box {
+      background: linear-gradient(130deg, rgba(1, 56, 234, 0.1) 0%, rgba(77, 72, 173, 0.1) 100%);
+      border: 1px solid rgba(1, 56, 234, 0.18);
+      border-radius: 28px;
+      padding: 90px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 55%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(1, 56, 234, 0.6), transparent);
+    }
+
+    .cta-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(110px);
+      pointer-events: none;
+    }
+
+    .cta-orb-l {
+      width: 380px;
+      height: 380px;
+      background: var(--blue);
+      opacity: 0.14;
+      top: -120px;
+      left: -80px;
+    }
+
+    .cta-orb-r {
+      width: 380px;
+      height: 380px;
+      background: var(--purple);
+      opacity: 0.14;
+      bottom: -120px;
+      right: -80px;
+    }
+
+    .cta-h {
+      font-size: clamp(34px, 4.2vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.52);
+      max-width: 460px;
+      margin: 0 auto 44px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-acts {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--bg-1);
+      border-top: 1px solid rgba(255, 255, 255, 0.045);
+      padding: 72px 0 40px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr 1fr 1fr;
+      gap: 56px;
+      margin-bottom: 64px;
+    }
+
+    .footer-desc {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.38);
+      margin-top: 16px;
+      max-width: 260px;
+    }
+
+    .footer-col-h {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.32);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .footer-col a {
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer-col a:hover {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.26);
+    }
+
+    .socials {
+      display: flex;
+      gap: 10px;
+    }
+
+    .soc {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.42);
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    }
+
+    .soc:hover {
+      background: rgba(1, 56, 234, 0.14);
+      border-color: rgba(1, 56, 234, 0.3);
+      color: var(--light-blue);
+      transform: translateY(-2px);
+    }
+
+    .soc:focus-visible {
+      outline: 2px solid var(--light-blue);
+      outline-offset: 2px;
+    }
+
+    /* ─── Scroll Reveal ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-right {
+        display: none;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .process-steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .process-steps::before {
+        display: none;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .sec-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        padding: 0 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 110px 20px 60px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .work-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .work-featured {
+        aspect-ratio: 4/3;
+      }
+
+      .process-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-box {
+        padding: 52px 24px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ NAV ═══ -->
+  <nav id="nav">
+    <div class="nav-wrap">
+      <a href="#" class="nav-logo">
+        <img src="brand_assets/LD-Logo.png" alt="Limitless Design">
+        <span class="nav-logo-text">Limitless Design</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-primary">Start a Project</a>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <section>
+    <div class="hero-orb orb-a"></div>
+    <div class="hero-orb orb-b"></div>
+    <div class="hero-orb orb-c"></div>
+
+    <div class="hero">
+      <!-- Left -->
+      <div class="hero-left">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          <span>Now accepting new projects</span>
+        </div>
+
+        <h1 class="hero-h1">
+          Design That<br>
+          <span class="grad-text">Breaks Every</span><br>
+          Boundary
+        </h1>
+
+        <p class="hero-p">
+          We craft digital experiences that captivate, convert, and endure. From bold brand identities to seamless
+          digital products — we design without limits.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#work" class="btn btn-primary">View Our Work</a>
+          <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+        </div>
+
+        <div class="hero-stats">
+          <div>
+            <div class="stat-n">150+</div>
+            <div class="stat-l">Projects delivered</div>
+          </div>
+          <div>
+            <div class="stat-n">8+</div>
+            <div class="stat-l">Years experience</div>
+          </div>
+          <div>
+            <div class="stat-n">98%</div>
+            <div class="stat-l">Client satisfaction</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right -->
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-card-img-wrap">
+            <img src="brand_assets/LD-Logo.png" alt="Featured project preview">
+          </div>
+          <div class="hero-card-body">
+            <span class="hero-card-title">Brand Identity System</span>
+            <span class="hero-card-pill">Featured Work</span>
+          </div>
+        </div>
+
+        <div class="chip chip-a">
+          <div class="chip-icon">✦</div>
+          <div>
+            <div class="chip-label">Design Award</div>
+            <div class="chip-sub">Awwwards SOTD</div>
+          </div>
+        </div>
+
+        <div class="chip chip-b">
+          <div class="chip-icon">↑</div>
+          <div>
+            <div class="chip-label">+240% Conversions</div>
+            <div class="chip-sub">Average client result</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SERVICES ═══ -->
+  <section id="services" class="sec services-bg">
+    <div class="wrap">
+      <div class="sec-header">
+        <div>
+          <div class="sec-tag">What We Do</div>
+          <h2 class="sec-h">End-to-End Design<br>Solutions</h2>
+        </div>
+        <p class="sec-sub">From the first spark of an idea to a fully realised digital presence — we handle every
+          touchpoint with precision and intention.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="srv-card reveal">
+          <div class="srv-icon">◈</div>
+          <h3 class="srv-name">Brand Identity</h3>
+          <p class="srv-desc">Strategic brand systems that define who you are and how the world sees you. Logos,
+            guidelines, and complete visual language.</p>
+        </div>
+        <div class="srv-card reveal" style="transition-delay:.08s">
+          <div class="srv-icon">⬡</div>
+          <h3 class="srv-name">Web Design & Dev</h3>
+          <p class="srv-desc">Pixel-perfect websites that perform as beautifully as they look. Built for speed,
+            accessibility, and conversion.</p>
+        </div>
+        <div class="srv-card reveal" style="transition-delay:.16s">
+          <div class="srv-icon">◎</div>
+          <h3 class="srv-name">UI/UX Design</h3>
+          <p class="srv-desc">Intuitive, user-centred digital products. Research-driven flows and polished interfaces
+            that delight at every interaction.</p>
+        </div>
+        <div class="srv-card reveal" style="transition-delay:.24s">
+          <div class="srv-icon">⬟</div>
+          <h3 class="srv-name">Motion & Animation</h3>
+          <p class="srv-desc">Purposeful motion that brings interfaces to life. From subtle micro-interactions to
+            cinematic brand films.</p>
+        </div>
+        <div class="srv-card reveal" style="transition-delay:.32s">
+          <div class="srv-icon">◉</div>
+          <h3 class="srv-name">Digital Strategy</h3>
+          <p class="srv-desc">Data-informed creative strategy that aligns design decisions with measurable business
+            outcomes and growth.</p>
+        </div>
+        <div class="srv-card reveal" style="transition-delay:.40s">
+          <div class="srv-icon">⬠</div>
+          <h3 class="srv-name">Print & Packaging</h3>
+          <p class="srv-desc">Tangible brand experiences that leave lasting impressions. From premium packaging to
+            editorial print design.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WORK ═══ -->
+  <section id="work" class="sec">
+    <div class="wrap">
+      <div class="sec-header">
+        <div>
+          <div class="sec-tag">Selected Work</div>
+          <h2 class="sec-h">Projects We're<br>Proud Of</h2>
+        </div>
+        <a href="#contact" class="btn btn-ghost" style="white-space:nowrap">See All Work →</a>
+      </div>
+
+      <div class="work-grid">
+        <div class="work-card work-featured reveal">
+          <div class="work-bg work-bg-nexora"></div>
+          <div class="work-label-center">NEXORA</div>
+          <div class="work-card-overlay">
+            <span class="work-tag">Brand Identity</span>
+            <h3 class="work-title">Nexora — Complete Brand Overhaul</h3>
+          </div>
+        </div>
+        <div class="work-card work-half reveal" style="transition-delay:.1s">
+          <div class="work-bg work-bg-vela"></div>
+          <div class="work-label-center">VELA</div>
+          <div class="work-card-overlay">
+            <span class="work-tag">Web Design</span>
+            <h3 class="work-title">Vela — SaaS Platform</h3>
+          </div>
+        </div>
+        <div class="work-card work-half reveal" style="transition-delay:.2s">
+          <div class="work-bg work-bg-arch"></div>
+          <div class="work-label-center">ARCH</div>
+          <div class="work-card-overlay">
+            <span class="work-tag">UI/UX</span>
+            <h3 class="work-title">Arch — Mobile Banking App</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROCESS ═══ -->
+  <section id="process" class="sec process-bg">
+    <div class="process-glow"></div>
+    <div class="wrap" style="position:relative;z-index:1">
+      <div style="text-align:center;margin-bottom:10px">
+        <div class="sec-tag" style="justify-content:center">Our Process</div>
+      </div>
+      <h2 class="sec-h" style="text-align:center;margin-bottom:14px">How We Work</h2>
+      <p class="sec-sub" style="text-align:center;margin:0 auto">A structured creative process that balances strategic
+        thinking with expressive design — every time.</p>
+
+      <div class="process-steps">
+        <div class="p-step reveal">
+          <div class="p-num">01</div>
+          <h3 class="p-title">Discover</h3>
+          <p class="p-desc">Deep dives into your brand, audience, and goals. We ask the questions others skip.</p>
+        </div>
+        <div class="p-step reveal" style="transition-delay:.14s">
+          <div class="p-num">02</div>
+          <h3 class="p-title">Strategise</h3>
+          <p class="p-desc">Positioning, direction, and creative brief locked in before a single pixel is placed.</p>
+        </div>
+        <div class="p-step reveal" style="transition-delay:.28s">
+          <div class="p-num">03</div>
+          <h3 class="p-title">Design</h3>
+          <p class="p-desc">Iterative design with close collaboration. You're in the loop at every milestone.</p>
+        </div>
+        <div class="p-step reveal" style="transition-delay:.42s">
+          <div class="p-num">04</div>
+          <h3 class="p-title">Launch</h3>
+          <p class="p-desc">Polished delivery with full handover docs, assets, and continued support.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section id="contact" class="cta-sec">
+    <div class="wrap">
+      <div class="cta-box reveal">
+        <div class="cta-orb cta-orb-l"></div>
+        <div class="cta-orb cta-orb-r"></div>
+        <h2 class="cta-h">
+          Ready to Create<br>
+          Something <span class="grad-text">Limitless?</span>
+        </h2>
+        <p class="cta-p">Let's turn your vision into a design that drives real results. No templates, no compromise —
+          just exceptional work.</p>
+        <div class="cta-acts">
+          <a href="mailto:hello@limitlessdesign.com" class="btn btn-primary"
+            style="font-size:15px;padding:14px 32px">Start a Project</a>
+          <a href="#" class="btn btn-ghost" style="font-size:15px;padding:14px 32px">View Pricing</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer id="about">
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <a href="#" class="nav-logo">
+            <img src="brand_assets/LD-Logo.png" alt="Limitless Design" style="height:30px">
+            <span class="nav-logo-text">Limitless Design</span>
+          </a>
+          <p class="footer-desc">A design studio crafting digital experiences without limits. Based globally, working
+            everywhere.</p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-h">Services</div>
+          <ul>
+            <li><a href="#">Brand Identity</a></li>
+            <li><a href="#">Web Design</a></li>
+            <li><a href="#">UI/UX Design</a></li>
+            <li><a href="#">Motion</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-h">Company</div>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Work</a></li>
+            <li><a href="#">Process</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-h">Connect</div>
+          <ul>
+            <li><a href="#">hello@limitlessdesign.com</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Behance</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Limitless Design. All rights reserved.</span>
+        <div class="socials">
+          <a href="#" class="soc" aria-label="LinkedIn">in</a>
+          <a href="#" class="soc" aria-label="Behance">be</a>
+          <a href="#" class="soc" aria-label="Instagram">ig</a>
+          <a href="#" class="soc" aria-label="Twitter">tw</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav sticky
+    const nav = document.getElementById('nav');
+    addEventListener('scroll', () => {
+      nav.classList.toggle('stuck', scrollY > 30);
+    }, { passive: true });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => io.observe(el));
+  </script>
+
+</body>
+
+</html>
