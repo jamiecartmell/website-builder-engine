@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The ClockHouse Cafe — Westport</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;500;600&family=IM+Fell+English:ital@0;1&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --forest:       #3a4f4a;
+      --forest-dark:  #2b3c38;
+      --forest-deep:  #1e2d2a;
+      --copper:       #c4856a;
+      --copper-light: #d9a48e;
+      --copper-pale:  #e8c4b0;
+      --cream:        #e8dfc0;
+      --cream-soft:   #f2ece0;
+      --cream-pale:   #faf7f0;
+      --warm-white:   #fefcf8;
+      --font-display: 'Cinzel', serif;
+      --font-body:    'Cormorant Garamond', serif;
+      --font-accent:  'IM Fell English', serif;
+      --font-ui:      'Raleway', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream-pale);
+      color: var(--forest-deep);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Grain texture overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+    }
+
+    /* ═══════════════════════════
+       NAVIGATION
+    ═══════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      padding: 28px 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.5s ease, padding 0.4s ease, box-shadow 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(30, 45, 42, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 18px 52px;
+      box-shadow: 0 1px 0 rgba(196,133,106,0.12), 0 4px 24px rgba(0,0,0,0.2);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 0 1px rgba(196,133,106,0.3);
+    }
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--cream);
+      letter-spacing: 0.2em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-ui);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: rgba(232,223,192,0.6);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--copper-light); }
+
+    .nav-cta {
+      color: var(--forest-deep) !important;
+      background: var(--copper);
+      padding: 11px 24px !important;
+      border-radius: 2px;
+      transition: background 0.2s ease, transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s ease !important;
+    }
+    .nav-cta:hover {
+      background: var(--copper-light) !important;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(196,133,106,0.28) !important;
+      color: var(--forest-deep) !important;
+    }
+    .nav-cta:active { transform: translateY(0) !important; }
+
+    /* ═══════════════════════════
+       HERO
+    ═══════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      background: var(--forest-deep);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: 120px 60px 100px;
+    }
+
+    /* Radial copper glow */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 45%; left: 50%;
+      transform: translate(-50%, -60%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(196,133,106,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    /* Bottom forest glow */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 1000px; height: 400px;
+      background: radial-gradient(ellipse, rgba(58,79,74,0.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Corner brackets */
+    .hero-corner {
+      position: absolute;
+      width: 64px; height: 64px;
+      border-color: rgba(196,133,106,0.28);
+      border-style: solid;
+    }
+    .hero-corner.tl { top: 36px; left: 36px; border-width: 1px 0 0 1px; }
+    .hero-corner.tr { top: 36px; right: 36px; border-width: 1px 1px 0 0; }
+    .hero-corner.bl { bottom: 36px; left: 36px; border-width: 0 0 1px 1px; }
+    .hero-corner.br { bottom: 36px; right: 36px; border-width: 0 1px 1px 0; }
+
+    .hero-logo {
+      width: 152px; height: 152px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 44px;
+      filter: drop-shadow(0 0 52px rgba(196,133,106,0.2)) drop-shadow(0 0 10px rgba(196,133,106,0.1));
+      position: relative; z-index: 2;
+      opacity: 0; transform: translateY(22px);
+      animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.1s forwards;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-ui);
+      font-size: 10px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--copper-light);
+      margin-bottom: 18px;
+      position: relative; z-index: 2;
+      opacity: 0; transform: translateY(14px);
+      animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 0.38s forwards;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 6.5vw, 76px);
+      font-weight: 400;
+      color: var(--cream);
+      letter-spacing: 0.14em;
+      line-height: 1.1;
+      position: relative; z-index: 2;
+      opacity: 0; transform: translateY(14px);
+      animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 0.54s forwards;
+    }
+
+    .hero-rule {
+      width: 80px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--copper), transparent);
+      margin: 30px auto 26px;
+      position: relative; z-index: 2;
+      opacity: 0;
+      animation: fadeIn 1.2s ease 0.72s forwards;
+    }
+
+    .hero-tagline {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: clamp(18px, 2.2vw, 22px);
+      color: rgba(232,223,192,0.58);
+      max-width: 460px;
+      line-height: 1.75;
+      margin: 0 auto 52px;
+      position: relative; z-index: 2;
+      opacity: 0; transform: translateY(12px);
+      animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 0.78s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative; z-index: 2;
+      opacity: 0; transform: translateY(10px);
+      animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 0.96s forwards;
+    }
+
+    .btn-primary {
+      font-family: var(--font-ui);
+      font-size: 10px;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      background: var(--copper);
+      color: var(--forest-deep);
+      border: none;
+      padding: 17px 38px;
+      cursor: pointer;
+      border-radius: 2px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.25s ease, transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease;
+    }
+    .btn-primary:hover {
+      background: var(--copper-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(196,133,106,0.28);
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-ghost {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--copper-light);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px 2px;
+      border-bottom: 1px solid rgba(196,133,106,0.35);
+      text-decoration: none;
+      display: inline-block;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .btn-ghost:hover { color: var(--copper-pale); border-color: var(--copper); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeIn 1.4s ease 1.4s forwards;
+    }
+    .hero-scroll span {
+      font-family: var(--font-ui);
+      font-size: 9px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(232,223,192,0.25);
+    }
+    .scroll-line {
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, rgba(196,133,106,0.5), transparent);
+      animation: scrollPulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; }
+      50%       { opacity: 1; }
+    }
+
+    /* ═══════════════════════════
+       REVEAL
+    ═══════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.85s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.32s; }
+    .reveal-d4 { transition-delay: 0.44s; }
+
+    /* ═══════════════════════════
+       UTILITIES
+    ═══════════════════════════ */
+    .section-label {
+      font-family: var(--font-ui);
+      font-size: 10px;
+      letter-spacing: 4.5px;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .section-label::after {
+      content: '';
+      display: block;
+      width: 40px; height: 1px;
+      background: var(--copper);
+      opacity: 0.6;
+    }
+    .section-label.light { color: var(--copper-light); }
+    .section-label.light::after { background: var(--copper-light); }
+    .section-label.centered {
+      justify-content: center;
+    }
+    .section-label.centered::before {
+      content: '';
+      display: block;
+      width: 40px; height: 1px;
+      background: var(--copper);
+      opacity: 0.6;
+    }
+
+    /* ═══════════════════════════
+       INTRO / ABOUT
+    ═══════════════════════════ */
+    .intro-section {
+      background: var(--cream-pale);
+      padding: 128px 60px;
+    }
+    .intro-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+
+    .intro-text h2 {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 3.5vw, 46px);
+      font-weight: 400;
+      color: var(--forest);
+      letter-spacing: 0.07em;
+      line-height: 1.2;
+      margin-bottom: 28px;
+    }
+    .intro-text p {
+      font-family: var(--font-body);
+      font-size: 18px;
+      color: #4a5e58;
+      line-height: 1.9;
+      margin-bottom: 18px;
+    }
+    .intro-text p:last-of-type { margin-bottom: 36px; }
+
+    .intro-values {
+      list-style: none;
+      margin-top: 32px;
+    }
+    .intro-values li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 13px;
+      font-family: var(--font-body);
+      font-size: 17px;
+      color: var(--forest);
+      line-height: 1.5;
+    }
+    .intro-values li::before {
+      content: '◆';
+      color: var(--copper);
+      font-size: 7px;
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .intro-image-block {
+      position: relative;
+    }
+    .intro-img-main {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 2px;
+      display: block;
+      filter: saturate(0.88);
+    }
+    /* Offset decorative border */
+    .intro-image-block::before {
+      content: '';
+      position: absolute;
+      top: -16px; left: -16px;
+      right: 16px; bottom: 16px;
+      border: 1px solid rgba(196,133,106,0.28);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+    /* Gradient overlay */
+    .intro-image-block::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(30,45,42,0.3));
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════
+       MENU HIGHLIGHTS
+    ═══════════════════════════ */
+    .menu-section {
+      background: var(--forest);
+      padding: 128px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .menu-section::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(196,133,106,0.055) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .menu-section::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -150px;
+      width: 500px; height: 400px;
+      background: radial-gradient(circle, rgba(30,45,42,0.5) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .menu-inner { max-width: 1120px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .menu-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 64px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .menu-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 3.8vw, 50px);
+      font-weight: 400;
+      color: var(--cream);
+      letter-spacing: 0.08em;
+      line-height: 1.15;
+    }
+    .menu-view-all {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--copper-light);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(196,133,106,0.35);
+      padding-bottom: 3px;
+      margin-bottom: 8px;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .menu-view-all:hover { color: var(--copper-pale); border-color: var(--copper); }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+
+    .menu-card {
+      background: rgba(30,45,42,0.55);
+      border: 1px solid rgba(196,133,106,0.14);
+      border-radius: 3px;
+      overflow: hidden;
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
+                  box-shadow 0.35s ease;
+    }
+    .menu-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 56px rgba(0,0,0,0.28), 0 0 0 1px rgba(196,133,106,0.22);
+    }
+
+    .menu-card-image {
+      height: 190px;
+      background: var(--forest-dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .menu-card-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.65;
+      transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease;
+    }
+    .menu-card:hover .menu-card-image img {
+      transform: scale(1.06);
+      opacity: 0.8;
+    }
+    .menu-card-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 25%, rgba(30,45,42,0.65));
+    }
+    .menu-card-emoji {
+      position: absolute;
+      bottom: 18px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 30px;
+      z-index: 2;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+    }
+
+    .menu-card-body { padding: 26px 28px 30px; }
+    .menu-card-cat {
+      font-family: var(--font-ui);
+      font-size: 9px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 10px;
+    }
+    .menu-card-name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--cream);
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .menu-card-desc {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 15px;
+      color: rgba(232,223,192,0.52);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+    .menu-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .menu-card-price {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--copper);
+    }
+    .menu-card-badge {
+      font-family: var(--font-ui);
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      background: rgba(196,133,106,0.13);
+      color: var(--copper-light);
+      border: 1px solid rgba(196,133,106,0.22);
+      border-radius: 2px;
+    }
+
+    /* ═══════════════════════════
+       GALLERY / ATMOSPHERE
+    ═══════════════════════════ */
+    .atmosphere-section {
+      background: var(--cream-soft);
+      padding: 128px 60px;
+    }
+    .atmosphere-inner { max-width: 1120px; margin: 0 auto; }
+
+    .atmosphere-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .atmosphere-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 400;
+      color: var(--forest);
+      letter-spacing: 0.08em;
+      margin-bottom: 18px;
+    }
+    .atmosphere-header p {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 19px;
+      color: #6a7e78;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.85fr 1fr;
+      grid-template-rows: 280px 240px;
+      gap: 14px;
+    }
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 2px;
+      position: relative;
+    }
+    .gallery-item:first-child { grid-row: span 2; }
+
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), filter 0.4s ease;
+      filter: saturate(0.82);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.06);
+      filter: saturate(1.05);
+    }
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 35%, rgba(30,45,42,0.42));
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .gallery-item:hover::after { opacity: 0.6; }
+
+    /* ═══════════════════════════
+       HOURS & LOCATION
+    ═══════════════════════════ */
+    .info-section {
+      background: var(--forest-deep);
+      padding: 128px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .info-section::before {
+      content: '';
+      position: absolute;
+      left: -100px; top: 50%;
+      transform: translateY(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(196,133,106,0.055) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .info-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 88px;
+      align-items: start;
+      position: relative; z-index: 1;
+    }
+    .info-divider { background: rgba(196,133,106,0.18); align-self: stretch; }
+
+    .info-block h3 {
+      font-family: var(--font-display);
+      font-size: 30px;
+      font-weight: 400;
+      color: var(--cream);
+      letter-spacing: 0.08em;
+      margin-bottom: 36px;
+    }
+
+    .hours-list { list-style: none; }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(196,133,106,0.1);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-day {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(232,223,192,0.45);
+    }
+    .hours-time {
+      font-family: var(--font-body);
+      font-size: 17px;
+      color: var(--cream);
+    }
+    .hours-row.highlight .hours-day  { color: var(--copper-light); }
+    .hours-row.highlight .hours-time { color: var(--copper-pale); }
+
+    .info-quote {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 17px;
+      color: rgba(232,223,192,0.4);
+      line-height: 1.7;
+      margin-top: 32px;
+    }
+
+    .location-address {
+      font-family: var(--font-body);
+      font-size: 19px;
+      color: var(--cream);
+      line-height: 1.85;
+      margin-bottom: 28px;
+    }
+    .location-address strong {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 12px;
+    }
+    .location-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 8px;
+      font-family: var(--font-ui);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--copper-light);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(196,133,106,0.3);
+      padding-bottom: 3px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .location-link:hover { color: var(--copper-pale); border-color: var(--copper); }
+
+    /* ═══════════════════════════
+       RESERVE / CTA
+    ═══════════════════════════ */
+    .reserve-section {
+      background: var(--cream-soft);
+      padding: 128px 60px;
+    }
+    .reserve-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .reserve-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 400;
+      color: var(--forest);
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .reserve-inner > p {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 19px;
+      color: #6a7e78;
+      line-height: 1.75;
+      margin-bottom: 52px;
+    }
+
+    .reserve-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      text-align: left;
+      margin-bottom: 4px;
+    }
+    .reserve-form .span-2 { grid-column: span 2; }
+
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-label {
+      font-family: var(--font-ui);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--copper);
+    }
+    .form-input {
+      background: var(--warm-white);
+      border: 1px solid rgba(58,79,74,0.18);
+      border-radius: 2px;
+      padding: 14px 18px;
+      font-family: var(--font-body);
+      font-size: 17px;
+      color: var(--forest-deep);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      width: 100%;
+    }
+    .form-input::placeholder { color: rgba(58,79,74,0.32); font-style: italic; }
+    .form-input:focus {
+      border-color: var(--copper);
+      box-shadow: 0 0 0 3px rgba(196,133,106,0.1);
+    }
+    .form-submit {
+      font-family: var(--font-ui);
+      font-size: 10px;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      background: var(--forest);
+      color: var(--cream);
+      border: none;
+      padding: 19px 48px;
+      cursor: pointer;
+      border-radius: 2px;
+      width: 100%;
+      margin-top: 10px;
+      transition: background 0.25s ease, transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease;
+    }
+    .form-submit:hover {
+      background: var(--copper);
+      color: var(--forest-deep);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(196,133,106,0.22);
+    }
+    .form-submit:active { transform: translateY(0); }
+
+    /* ═══════════════════════════
+       FOOTER
+    ═══════════════════════════ */
+    footer {
+      background: var(--forest-deep);
+      padding: 88px 60px 52px;
+      border-top: 1px solid rgba(196,133,106,0.12);
+    }
+    .footer-inner { max-width: 1120px; margin: 0 auto; }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 80px;
+      margin-bottom: 60px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .footer-logo img {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 0 1px rgba(196,133,106,0.25);
+    }
+    .footer-brand-name {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--cream);
+      letter-spacing: 0.2em;
+    }
+    .footer-tagline {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 16px;
+      color: var(--copper-light);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .footer-desc {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: rgba(232,223,192,0.35);
+      line-height: 1.85;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-ui);
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--copper-light);
+      margin-bottom: 26px;
+    }
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+    .footer-links-list a {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: rgba(232,223,192,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links-list a:hover { color: var(--copper-light); }
+
+    .footer-contact p {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: rgba(232,223,192,0.45);
+      line-height: 1.85;
+    }
+    .footer-contact a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-contact a:hover { color: var(--copper-light); }
+
+    .footer-bottom {
+      padding-top: 32px;
+      border-top: 1px solid rgba(196,133,106,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copy {
+      font-family: var(--font-ui);
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: rgba(232,223,192,0.18);
+    }
+    .footer-social {
+      display: flex;
+      gap: 22px;
+    }
+    .footer-social a {
+      font-family: var(--font-ui);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(232,223,192,0.28);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-social a:hover { color: var(--copper-light); }
+
+    /* ═══════════════════════════
+       RESPONSIVE
+    ═══════════════════════════ */
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; }
+      nav.scrolled { padding: 14px 24px; }
+      .nav-links { display: none; }
+
+      .hero { padding: 100px 28px 90px; }
+      .hero-corner { width: 44px; height: 44px; top: 24px; }
+      .hero-corner.bl, .hero-corner.br { bottom: 24px; }
+      .hero-corner.tr, .hero-corner.br { right: 24px; }
+      .hero-corner.tl, .hero-corner.bl { left: 24px; }
+
+      .intro-section,
+      .menu-section,
+      .atmosphere-section,
+      .info-section,
+      .reserve-section { padding: 80px 28px; }
+
+      .intro-inner { grid-template-columns: 1fr; gap: 52px; }
+      .intro-image-block { order: -1; }
+      .intro-image-block::before { display: none; }
+      .intro-img-main { aspect-ratio: 3/2; }
+
+      .menu-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .menu-grid { grid-template-columns: 1fr; gap: 18px; }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 200px 200px 200px;
+      }
+      .gallery-item:first-child { grid-row: span 1; }
+
+      .info-inner { grid-template-columns: 1fr; gap: 56px; }
+      .info-divider { display: none; }
+
+      .reserve-form { grid-template-columns: 1fr; }
+      .reserve-form .span-2 { grid-column: span 1; }
+
+      footer { padding: 64px 28px 44px; }
+      .footer-top { grid-template-columns: 1fr; gap: 52px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">
+    <img src="/brand_assets/clock_house_cafe/clock_house_cafe_logo.jpg" alt="The ClockHouse Cafe">
+    <span class="nav-brand">ClockHouse</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#hours">Hours</a></li>
+    <li><a href="#reserve" class="nav-cta">Reserve</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-corner tl"></div>
+  <div class="hero-corner tr"></div>
+  <div class="hero-corner bl"></div>
+  <div class="hero-corner br"></div>
+
+  <img class="hero-logo"
+       src="/brand_assets/clock_house_cafe/clock_house_cafe_logo.jpg"
+       alt="The ClockHouse Cafe">
+
+  <p class="hero-eyebrow">Est. in Westport, Co. Mayo</p>
+  <h1 class="hero-title">The ClockHouse<br>Cafe</h1>
+  <div class="hero-rule"></div>
+  <p class="hero-tagline">Where time slows down and every cup tells a story.</p>
+
+  <div class="hero-actions">
+    <a href="#reserve" class="btn-primary">Reserve a Table</a>
+    <a href="#menu" class="btn-ghost">Explore our menu &rarr;</a>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── INTRO / ABOUT ── -->
+<section class="intro-section" id="about">
+  <div class="intro-inner">
+    <div class="intro-text">
+      <div class="section-label reveal">Our Story</div>
+      <h2 class="reveal reveal-d1">Timeless Character,<br>Warm Welcome</h2>
+      <p class="reveal reveal-d2">Nestled in the heart of Westport, The ClockHouse Cafe is rooted in the feeling of time well spent — unhurried mornings, the scent of fresh coffee, and craftsmanship in every cup.</p>
+      <p class="reveal reveal-d2">We believe in the old virtues: sourcing locally, baking daily, and serving with genuine care. Every detail, from the hand-laminated pastries to the carefully pulled espresso, reflects a commitment to artisan quality.</p>
+      <ul class="intro-values reveal reveal-d3">
+        <li>Heritage &amp; timelessness — classic forms, never trendy</li>
+        <li>Warmth &amp; hospitality — an inviting space, a generous spirit</li>
+        <li>Crafted quality — artisan detail in every plate and cup</li>
+        <li>Local &amp; authentic — rooted in Westport and community</li>
+      </ul>
+    </div>
+    <div class="intro-image-block reveal reveal-d2">
+      <img class="intro-img-main"
+           src="https://placehold.co/600x750/3a4f4a/c4856a?text=+&font=raleway"
+           alt="The ClockHouse Cafe interior">
+    </div>
+  </div>
+</section>
+
+<!-- ── MENU HIGHLIGHTS ── -->
+<section class="menu-section" id="menu">
+  <div class="menu-inner">
+    <div class="menu-header">
+      <div>
+        <div class="section-label light reveal">From Our Kitchen</div>
+        <h2 class="reveal reveal-d1">Crafted with care,<br>served with warmth.</h2>
+      </div>
+      <a href="#" class="menu-view-all reveal reveal-d2">View full menu &rarr;</a>
+    </div>
+
+    <div class="menu-grid">
+      <div class="menu-card reveal reveal-d1">
+        <div class="menu-card-image">
+          <img src="https://placehold.co/480x220/2b3c38/c4856a?text=+&font=raleway" alt="Flat White">
+          <div class="menu-card-emoji">☕</div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-cat">Hot Drinks</div>
+          <div class="menu-card-name">Signature Flat White</div>
+          <div class="menu-card-desc">Two shots of our house-roasted espresso with silky steamed whole milk, served at the perfect temperature.</div>
+          <div class="menu-card-footer">
+            <span class="menu-card-price">€3.80</span>
+            <span class="menu-card-badge">Staff Pick</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal reveal-d2">
+        <div class="menu-card-image">
+          <img src="https://placehold.co/480x220/1e2d2a/d9a48e?text=+&font=raleway" alt="Eggs Benedict">
+          <div class="menu-card-emoji">🍳</div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-cat">Breakfast</div>
+          <div class="menu-card-name">Eggs Benedict</div>
+          <div class="menu-card-desc">Free-range poached eggs on toasted sourdough with smoked Irish salmon and hand-made hollandaise.</div>
+          <div class="menu-card-footer">
+            <span class="menu-card-price">€13.50</span>
+            <span class="menu-card-badge">Seasonal</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal reveal-d3">
+        <div class="menu-card-image">
+          <img src="https://placehold.co/480x220/3a4f4a/e8c4b0?text=+&font=raleway" alt="Almond Croissant">
+          <div class="menu-card-emoji">🥐</div>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-cat">Pastries</div>
+          <div class="menu-card-name">Almond Croissant</div>
+          <div class="menu-card-desc">Hand-laminated in-house and filled with rich frangipane, lightly dusted with toasted flaked almonds.</div>
+          <div class="menu-card-footer">
+            <span class="menu-card-price">€4.20</span>
+            <span class="menu-card-badge">Baked Daily</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ATMOSPHERE GALLERY ── -->
+<section class="atmosphere-section">
+  <div class="atmosphere-inner">
+    <div class="atmosphere-header">
+      <div class="section-label centered reveal">The Space</div>
+      <h2 class="reveal reveal-d1">A Quiet Refuge</h2>
+      <p class="reveal reveal-d2">Step inside and let the world slow down. A sanctuary of warmth, light, and careful craft.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="https://placehold.co/600x560/2b3c38/e8dfc0?text=+&font=raleway" alt="Cafe interior">
+      </div>
+      <div class="gallery-item reveal reveal-d1">
+        <img src="https://placehold.co/480x280/3a4f4a/c4856a?text=+&font=raleway" alt="Coffee preparation">
+      </div>
+      <div class="gallery-item reveal reveal-d2">
+        <img src="https://placehold.co/540x280/1e2d2a/d9a48e?text=+&font=raleway" alt="Fresh pastries">
+      </div>
+      <div class="gallery-item reveal reveal-d1">
+        <img src="https://placehold.co/480x240/3a4f4a/e8c4b0?text=+&font=raleway" alt="Table setting">
+      </div>
+      <div class="gallery-item reveal reveal-d3">
+        <img src="https://placehold.co/540x240/2b3c38/c4856a?text=+&font=raleway" alt="Baked goods">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOURS & LOCATION ── -->
+<section class="info-section" id="hours">
+  <div class="info-inner">
+    <div class="info-block">
+      <div class="section-label light reveal">Visit Us</div>
+      <h3 class="reveal reveal-d1">Opening Hours</h3>
+      <ul class="hours-list reveal reveal-d2">
+        <li class="hours-row">
+          <span class="hours-day">Monday – Friday</span>
+          <span class="hours-time">8:00am – 5:00pm</span>
+        </li>
+        <li class="hours-row highlight">
+          <span class="hours-day">Saturday</span>
+          <span class="hours-time">9:00am – 4:00pm</span>
+        </li>
+        <li class="hours-row">
+          <span class="hours-day">Sunday</span>
+          <span class="hours-time">10:00am – 3:00pm</span>
+        </li>
+        <li class="hours-row">
+          <span class="hours-day">Bank Holidays</span>
+          <span class="hours-time">10:00am – 2:00pm</span>
+        </li>
+      </ul>
+      <p class="info-quote reveal reveal-d3">"Come in, pull up a chair, and let the clock on the wall do the watching."</p>
+    </div>
+
+    <div class="info-divider"></div>
+
+    <div class="info-block">
+      <div class="section-label light reveal">Find Us</div>
+      <h3 class="reveal reveal-d1">Westport, Co. Mayo</h3>
+      <div class="location-address reveal reveal-d2">
+        <strong>Address</strong>
+        The ClockHouse Cafe<br>
+        Bridge Street<br>
+        Westport<br>
+        Co. Mayo
+      </div>
+      <a href="#" class="location-link reveal reveal-d3">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 1C4 1 2.5 2.5 2.5 4.5C2.5 7 6 11 6 11C6 11 9.5 7 9.5 4.5C9.5 2.5 8 1 6 1Z"/>
+          <circle cx="6" cy="4.5" r="1.2"/>
+        </svg>
+        Get Directions
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESERVATION ── -->
+<section class="reserve-section" id="reserve">
+  <div class="reserve-inner">
+    <div class="section-label centered reveal">Make a Booking</div>
+    <h2 class="reveal reveal-d1">Reserve Your Table</h2>
+    <p class="reveal reveal-d2">Join us for breakfast or brunch. Walk-ins are always welcome, but a reservation ensures your favourite spot is ready and waiting.</p>
+
+    <form class="reserve-form reveal reveal-d3" onsubmit="return false;">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input class="form-input" type="text" placeholder="e.g. Sarah Murphy">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Party Size</label>
+        <input class="form-input" type="text" placeholder="e.g. 2 guests">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Preferred Date</label>
+        <input class="form-input" type="text" placeholder="e.g. Saturday 15 March">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Preferred Time</label>
+        <input class="form-input" type="text" placeholder="e.g. 10:00am">
+      </div>
+      <div class="form-group span-2">
+        <label class="form-label">Notes (optional)</label>
+        <input class="form-input" type="text" placeholder="Dietary requirements, high chair, special occasion…">
+      </div>
+      <button class="form-submit span-2" type="submit">Request Reservation</button>
+    </form>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <img src="/brand_assets/clock_house_cafe/clock_house_cafe_logo.jpg" alt="The ClockHouse Cafe">
+          <span class="footer-brand-name">ClockHouse Cafe</span>
+        </div>
+        <div class="footer-tagline">Time well spent, over good coffee.</div>
+        <p class="footer-desc">A heritage cafe in the heart of Westport, serving artisan coffee and freshly made food with warmth and care.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul class="footer-links-list">
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#hours">Hours &amp; Location</a></li>
+          <li><a href="#reserve">Reservations</a></li>
+          <li><a href="#">Gift Vouchers</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="footer-contact">
+          <p>Bridge Street<br>Westport, Co. Mayo</p>
+          <br>
+          <p><a href="tel:+35398000000">(098) 000 0000</a></p>
+          <p><a href="mailto:hello@clockhousecafe.ie">hello@clockhousecafe.ie</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 The ClockHouse Cafe &middot; All rights reserved &middot; Westport, Co. Mayo</span>
+      <div class="footer-social">
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
