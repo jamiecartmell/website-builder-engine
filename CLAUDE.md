@@ -32,7 +32,7 @@
 
 - Single `index.html` file, all styles inline, unless user says otherwise
 - Tailwind CSS via CDN: `<script src="https://cdn.tailwindcss.com"></script>`
-- Placeholder images: `https://placehold.co/WIDTHxHEIGHT`
+- Placeholder images: `https://picsum.photos/seed/[descriptive-word]/WIDTH/HEIGHT` — use descriptive seeds (e.g. `cafe`, `food`, `interior`) for realistic photography in mockups. Only fall back to `placehold.co` for pure layout/size placeholders.
 - Mobile-first responsive
 
 ## Brand Assets
@@ -53,6 +53,26 @@
 - **Spacing:** Use intentional, consistent spacing tokens — not random Tailwind steps.
 - **Depth:** Surfaces should have a layering system (base → elevated → floating), not all sit at the same z-plane.
 
+## Client Design Dials
+
+Set these at the start of each project to match the client's brief. Override in chat at any time.
+
+- **DESIGN_VARIANCE: 5** — (1 = safe/symmetric, 10 = asymmetric/artistic). Above 5: use split-screen or asymmetric hero layouts. Never centered heroes above 5.
+- **MOTION_INTENSITY: 4** — (1 = static, 10 = full animation). Below 4: hover/active states only. Above 6: scroll-triggered reveals and cascading transitions.
+- **VISUAL_DENSITY: 3** — (1 = airy/gallery, 10 = packed). Below 4: generous whitespace, minimal cards. Above 7: tighter padding, borders over card containers.
+
+## AI Tells — Forbidden Patterns
+
+These make designs look obviously AI-generated. Never use them:
+
+**Layout:** No centered hero sections when DESIGN_VARIANCE > 4. No three equal-width card grids side by side. No awkward floating decorative elements.
+
+**Visual:** No neon glows. No pure black (`#000000`) backgrounds. No gradient text (`bg-clip-text`). No oversaturated accents. No custom cursors.
+
+**Typography:** Never use Inter as the primary font — it signals default AI output. No oversized H1s that dwarf all other content.
+
+**Copy & Content:** No placeholder names like "John Doe", "Jane Smith". No company names like "Acme", "Nexus", "Apex". No suspiciously perfect stats like "99.99%" or "10,000+". No filler words like "Elevate", "Seamless", "Empower", "Transform".
+
 ## Hard Rules
 
 - Do not add sections, features, or content not in the reference
@@ -60,3 +80,5 @@
 - Do not stop after one screenshot pass
 - Do not use `transition-all`
 - Do not use default Tailwind blue/indigo as primary color
+- Do not use `h-screen` for full-height sections — use `min-h-[100dvh]` to prevent iOS viewport bugs
+- Prefer CSS Grid over flexbox percentage math for multi-column layouts

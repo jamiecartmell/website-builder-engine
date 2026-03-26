@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6 Metre Pylon — Wise Ants Creations</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    :root { --yellow:#F5C400; --black:#0A0A0A; --surface:#131313; --surface2:#1A1A1A; --border:#252525; --border2:#333333; --text:#F0F0F0; --muted:#7A7A7A; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'DM Sans',sans-serif; background:var(--black); color:var(--text); overflow-x:hidden; }
+    body::after { content:''; position:fixed; inset:0; pointer-events:none; z-index:9999; opacity:0.025; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    .font-display { font-family:'Bebas Neue',sans-serif; }
+    .font-condensed { font-family:'Barlow Condensed',sans-serif; }
+    #nav { position:fixed; top:0; left:0; right:0; z-index:500; padding:1.25rem 0; background:rgba(10,10,10,0.92); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom:1px solid var(--border); transition:padding 0.3s; }
+    #nav.scrolled { padding:0.85rem 0; }
+    .nav-link { font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; position:relative; padding-bottom:2px; transition:color 0.2s; }
+    .nav-link::after { content:''; position:absolute; bottom:-1px; left:0; width:0; height:1px; background:var(--yellow); transition:width 0.25s cubic-bezier(0.4,0,0.2,1); }
+    .nav-link:hover { color:var(--text); } .nav-link:hover::after { width:100%; }
+    .nav-link.active { color:var(--yellow); } .nav-link.active::after { width:100%; }
+    .btn-yellow { display:inline-flex; align-items:center; justify-content:center; background:var(--yellow); color:var(--black); font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.85rem; letter-spacing:0.14em; text-transform:uppercase; padding:0.85rem 2rem; text-decoration:none; transition:background 0.2s, transform 0.15s cubic-bezier(0.4,0,0.2,1); }
+    .btn-yellow:hover { background:#ffd000; transform:translateY(-2px); } .btn-yellow:active { transform:translateY(0); }
+    .btn-ghost { display:inline-flex; align-items:center; justify-content:center; background:transparent; color:var(--text); border:1px solid var(--border2); font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:0.85rem; letter-spacing:0.14em; text-transform:uppercase; padding:0.85rem 2rem; text-decoration:none; transition:border-color 0.2s, color 0.2s, transform 0.15s cubic-bezier(0.4,0,0.2,1); }
+    .btn-ghost:hover { border-color:var(--yellow); color:var(--yellow); transform:translateY(-2px); } .btn-ghost:active { transform:translateY(0); }
+    .section-label { font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:0.7rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--yellow); }
+    .y-rule { width:44px; height:2px; background:var(--yellow); }
+    .spec-row { display:flex; justify-content:space-between; align-items:center; padding:0.85rem 1.25rem; border-bottom:1px solid var(--border); }
+    .spec-row:last-child { border-bottom:none; }
+    .spec-key { font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); }
+    .spec-val { font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; font-weight:700; letter-spacing:0.06em; color:var(--text); }
+    .include-row { display:flex; align-items:flex-start; gap:0.9rem; padding:1rem 0; border-bottom:1px solid var(--border); }
+    .include-row:last-child { border-bottom:none; }
+    .related-card { background:var(--surface); border:1px solid var(--border); padding:1.75rem; text-decoration:none; display:block; transition:border-color 0.3s, transform 0.3s cubic-bezier(0.16,1,0.3,1); }
+    .related-card:hover { border-color:var(--yellow); transform:translateY(-4px); }
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .delay-1 { transition-delay:0.1s; } .delay-2 { transition-delay:0.2s; }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <div style="max-width:1280px; margin:0 auto; padding:0 2rem; display:flex; align-items:center; justify-content:space-between;">
+    <a href="../index.html"><img src="../../brand_assets/wise_ants/wise_ants_logo.png" alt="Wise Ants Creations" style="height:34px; width:auto;"></a>
+    <div style="display:flex; align-items:center; gap:2.5rem;" id="desktopNav">
+      <a href="../index.html"    class="nav-link">Home</a>
+      <a href="../services.html" class="nav-link">Services</a>
+      <a href="../products.html" class="nav-link active">Products</a>
+      <a href="../contact.html"  class="nav-link">Contact</a>
+    </div>
+    <a href="../contact.html?product=6m-pylon" class="btn-yellow" id="desktopCta" style="font-size:0.75rem; padding:0.6rem 1.4rem;">Get a Quote</a>
+    <button id="mobileToggle" style="display:none; background:none; border:none; cursor:pointer; color:var(--text);"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  </div>
+  <div id="mobileMenu" style="display:none; background:var(--surface); border-top:1px solid var(--border); padding:1.5rem 2rem;">
+    <div style="display:flex; flex-direction:column; gap:1.2rem;">
+      <a href="../index.html" class="nav-link">Home</a><a href="../services.html" class="nav-link">Services</a><a href="../products.html" class="nav-link active">Products</a><a href="../contact.html" class="nav-link">Contact</a>
+      <a href="../contact.html?product=6m-pylon" class="btn-yellow" style="margin-top:0.5rem; text-align:center;">Get a Quote</a>
+    </div>
+  </div>
+</nav>
+
+<div style="padding-top:5.5rem; background:var(--surface); border-bottom:1px solid var(--border);">
+  <div style="max-width:1280px; margin:0 auto; padding:0.85rem 2rem; display:flex; align-items:center; gap:0.6rem;">
+    <a href="../index.html"    style="font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); text-decoration:none;" onmouseover="this.style.color='var(--yellow)'" onmouseout="this.style.color='var(--muted)'">Home</a>
+    <span style="color:var(--border2);">/</span>
+    <a href="../products.html" style="font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); text-decoration:none;" onmouseover="this.style.color='var(--yellow)'" onmouseout="this.style.color='var(--muted)'">Products</a>
+    <span style="color:var(--border2);">/</span>
+    <span style="font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--yellow);">6m Pylon</span>
+    <span style="background:var(--yellow); color:var(--black); font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.58rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.15rem 0.5rem; margin-left:0.5rem;">Most Popular</span>
+  </div>
+</div>
+
+<section style="padding:4rem 0; background:var(--black);">
+  <div style="max-width:1280px; margin:0 auto; padding:0 2rem;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start;">
+      <div class="reveal" style="position:relative;">
+        <div style="aspect-ratio:4/3; overflow:hidden; border:1px solid var(--yellow); position:relative;">
+          <img src="https://picsum.photos/seed/signage6m/800/600" alt="6 Metre Pylon" style="width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(15%) brightness(0.8); transition:filter 0.5s;" onmouseover="this.style.filter='grayscale(0%) brightness(0.95)'" onmouseout="this.style.filter='grayscale(15%) brightness(0.8)'">
+          <div style="position:absolute; bottom:0; left:0; right:0; height:40%; background:linear-gradient(to top, rgba(10,10,10,0.7), transparent); pointer-events:none;"></div>
+          <div style="position:absolute; top:1.25rem; left:1.25rem; background:var(--yellow); color:var(--black); font-family:'Bebas Neue',sans-serif; font-size:2.5rem; letter-spacing:0.05em; padding:0.1rem 0.75rem; line-height:1.1;">6M</div>
+          <div style="position:absolute; top:1.25rem; right:1.25rem; background:var(--black); color:var(--yellow); font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.25rem 0.6rem; border:1px solid var(--yellow);">Most Popular</div>
+        </div>
+        <div style="position:absolute; bottom:-10px; left:-10px; width:40px; height:40px; border-left:2px solid var(--yellow); border-bottom:2px solid var(--yellow); pointer-events:none;"></div>
+        <div style="position:absolute; top:-10px; right:-10px; width:40px; height:40px; border-right:2px solid var(--yellow); border-top:2px solid var(--yellow); pointer-events:none;"></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-top:0.75rem;">
+          <div style="aspect-ratio:16/9; overflow:hidden; border:1px solid var(--border);"><img src="https://picsum.photos/seed/retail6a/400/225" alt="Application" style="width:100%; height:100%; object-fit:cover; filter:grayscale(20%) brightness(0.75);"></div>
+          <div style="aspect-ratio:16/9; overflow:hidden; border:1px solid var(--border);"><img src="https://picsum.photos/seed/automotive6b/400/225" alt="Application" style="width:100%; height:100%; object-fit:cover; filter:grayscale(20%) brightness(0.75);"></div>
+        </div>
+      </div>
+
+      <div class="reveal delay-1" style="position:sticky; top:7rem;">
+        <p class="section-label">Pylon Signage — Most Popular</p>
+        <div class="y-rule" style="margin:0.9rem 0 1.25rem;"></div>
+        <h1 class="font-display" style="font-size:clamp(3rem,5vw,5rem); letter-spacing:0.02em; line-height:0.95;">6 METRE<br><span style="color:var(--yellow);">PYLON</span></h1>
+        <p style="margin-top:1.25rem; font-size:0.925rem; color:var(--muted); line-height:1.75; font-weight:300;">The most versatile pylon in the range. Ideal for service stations, motor dealerships, retail parks, and medium to large commercial properties. Delivers strong roadside visibility at an optimal height for a wide range of applications.</p>
+        <div style="display:inline-flex; align-items:center; gap:0.5rem; margin-top:1.5rem; background:var(--yellow); color:var(--black); font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.4rem 0.9rem;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          Includes Manufacturing Guideline
+        </div>
+        <div style="border:1px solid rgba(245,196,0,0.3); margin-top:2rem;">
+          <div style="background:var(--surface2); padding:0.7rem 1.25rem; border-bottom:1px solid rgba(245,196,0,0.2);"><p class="font-condensed" style="font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted);">Specifications</p></div>
+          <div class="spec-row"><span class="spec-key">Height</span><span class="spec-val">6 Metres</span></div>
+          <div class="spec-row"><span class="spec-key">Material</span><span class="spec-val">ACM / Steel</span></div>
+          <div class="spec-row"><span class="spec-key">Application</span><span class="spec-val">Retail / Automotive / Commercial</span></div>
+          <div class="spec-row"><span class="spec-key">Finish</span><span class="spec-val">Powder Coated</span></div>
+          <div class="spec-row"><span class="spec-key">Guide Included</span><span class="spec-val" style="color:var(--yellow);">Yes — Full Document</span></div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:2rem;">
+          <a href="../contact.html?product=6m-pylon" class="btn-yellow" style="width:100%;">Request a Quote</a>
+          <a href="../products.html" class="btn-ghost" style="width:100%;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:0.5rem;"><path d="M15 19l-7-7 7-7"/></svg>Back to Products</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:5rem 0; background:var(--surface); border-top:1px solid var(--border);">
+  <div style="max-width:1280px; margin:0 auto; padding:0 2rem;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start;">
+      <div class="reveal">
+        <p class="section-label">What You Get</p>
+        <div class="y-rule" style="margin:0.9rem 0 1.25rem;"></div>
+        <h2 class="font-display" style="font-size:clamp(2rem,3.5vw,3rem); letter-spacing:0.02em; margin-bottom:2rem;">WHAT'S INCLUDED</h2>
+        <div>
+          <div class="include-row">
+            <div style="width:28px; height:28px; flex-shrink:0; background:var(--yellow); display:flex; align-items:center; justify-content:center; margin-top:0.1rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--black)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div><p class="font-condensed" style="font-weight:700; font-size:0.9rem; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.25rem;">Manufactured 6m Pylon Unit</p><p style="font-size:0.85rem; color:var(--muted); line-height:1.65;">Fully manufactured and quality-checked pylon, ready for installation.</p></div>
+          </div>
+          <div class="include-row">
+            <div style="width:28px; height:28px; flex-shrink:0; background:var(--yellow); display:flex; align-items:center; justify-content:center; margin-top:0.1rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--black)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div><p class="font-condensed" style="font-weight:700; font-size:0.9rem; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.25rem;">Full Manufacturing Guideline Document</p><p style="font-size:0.85rem; color:var(--muted); line-height:1.65;">Detailed technical documentation covering construction, materials, and installation — provided at point of purchase.</p></div>
+          </div>
+          <div class="include-row">
+            <div style="width:28px; height:28px; flex-shrink:0; background:var(--yellow); display:flex; align-items:center; justify-content:center; margin-top:0.1rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--black)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div><p class="font-condensed" style="font-weight:700; font-size:0.9rem; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.25rem;">Quality Assurance Sign-Off</p><p style="font-size:0.85rem; color:var(--muted); line-height:1.65;">Every unit is inspected and signed off before leaving our facility.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <div style="background:var(--black); border:1px solid var(--border); padding:2.5rem;">
+          <div style="width:48px; height:48px; background:var(--yellow); display:flex; align-items:center; justify-content:center; margin-bottom:1.5rem;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--black)" stroke-width="1.75"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+          <h3 class="font-display" style="font-size:1.75rem; letter-spacing:0.03em; margin-bottom:0.75rem;">MANUFACTURING<br>GUIDELINE</h3>
+          <p style="font-size:0.875rem; color:var(--muted); line-height:1.75; font-weight:300; margin-bottom:1.5rem;">Every pylon product includes the complete manufacturing guideline — a full technical reference covering construction specifications, material requirements, assembly steps, and installation guidance.</p>
+          <div style="border-top:1px solid var(--border); padding-top:1.25rem; display:flex; flex-direction:column; gap:0.75rem;">
+            <div style="display:flex; align-items:center; gap:0.75rem;"><div style="width:5px; height:5px; background:var(--yellow); border-radius:50%;"></div><p style="font-size:0.825rem; color:var(--muted);">Construction drawings and material specs</p></div>
+            <div style="display:flex; align-items:center; gap:0.75rem;"><div style="width:5px; height:5px; background:var(--yellow); border-radius:50%;"></div><p style="font-size:0.825rem; color:var(--muted);">Step-by-step assembly instructions</p></div>
+            <div style="display:flex; align-items:center; gap:0.75rem;"><div style="width:5px; height:5px; background:var(--yellow); border-radius:50%;"></div><p style="font-size:0.825rem; color:var(--muted);">Installation and anchoring guidelines</p></div>
+            <div style="display:flex; align-items:center; gap:0.75rem;"><div style="width:5px; height:5px; background:var(--yellow); border-radius:50%;"></div><p style="font-size:0.825rem; color:var(--muted);">Industry standard compliant</p></div>
+          </div>
+        </div>
+        <div style="margin-top:1rem; padding:1.25rem; border:1px solid var(--border); background:var(--surface2); display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+          <p style="font-size:0.875rem; color:var(--muted); line-height:1.6; font-weight:300;">Ready to order or need more information?</p>
+          <a href="../contact.html?product=6m-pylon" class="btn-yellow" style="white-space:nowrap; font-size:0.75rem; padding:0.6rem 1.25rem;">Get a Quote</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:5rem 0; background:var(--black); border-top:1px solid var(--border);">
+  <div style="max-width:1280px; margin:0 auto; padding:0 2rem;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:2.5rem;" class="reveal">
+      <div><p class="section-label">Also Available</p><div class="y-rule" style="margin:0.9rem 0 0;"></div></div>
+      <a href="../products.html" class="btn-ghost" style="font-size:0.75rem; padding:0.6rem 1.25rem;">All Products</a>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+      <a href="3m-pylon.html" class="related-card reveal delay-1">
+        <p class="section-label" style="font-size:0.65rem; margin-bottom:1rem;">3 Metres</p>
+        <h3 class="font-display" style="font-size:2rem; letter-spacing:0.03em; color:var(--text); margin-bottom:0.6rem;">3M PYLON</h3>
+        <p style="font-size:0.825rem; color:var(--muted); line-height:1.65; margin-bottom:1.25rem;">Compact and high-impact. Ideal for forecourts, entrance signage, and smaller commercial applications.</p>
+        <div style="display:inline-flex; align-items:center; gap:0.4rem; color:var(--yellow); font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; font-weight:700;">View Product <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></div>
+      </a>
+      <a href="7.5m-pylon.html" class="related-card reveal delay-2">
+        <p class="section-label" style="font-size:0.65rem; margin-bottom:1rem;">7.5 Metres</p>
+        <h3 class="font-display" style="font-size:2rem; letter-spacing:0.03em; color:var(--text); margin-bottom:0.6rem;">7.5M PYLON</h3>
+        <p style="font-size:0.825rem; color:var(--muted); line-height:1.65; margin-bottom:1.25rem;">Maximum roadside presence for high-traffic locations, large retail centres, and petrochemical sites.</p>
+        <div style="display:inline-flex; align-items:center; gap:0.4rem; color:var(--yellow); font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; font-weight:700;">View Product <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--black); border-top:1px solid var(--border);">
+  <div style="max-width:1280px; margin:0 auto; padding:4rem 2rem 3rem;">
+    <div style="display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:4rem;">
+      <div><img src="../../brand_assets/wise_ants/wise_ants_logo.png" alt="Wise Ants Creations" style="height:32px; width:auto; margin-bottom:1.25rem;"><p style="font-size:0.85rem; color:var(--muted); line-height:1.7; max-width:280px; font-weight:300;">Your Trusted Partner in Premium Signage and High-end ACM Building Cladding.</p></div>
+      <div>
+        <p class="font-condensed" style="font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:1.25rem;">Quick Links</p>
+        <div style="display:flex; flex-direction:column; gap:0.8rem;">
+          <a href="../index.html"    style="font-family:'Barlow Condensed',sans-serif; font-size:0.875rem; letter-spacing:0.1em; text-transform:uppercase; color:#999; text-decoration:none;" onmouseover="this.style.color='var(--yellow)'" onmouseout="this.style.color='#999'">Home</a>
+          <a href="../services.html" style="font-family:'Barlow Condensed',sans-serif; font-size:0.875rem; letter-spacing:0.1em; text-transform:uppercase; color:#999; text-decoration:none;" onmouseover="this.style.color='var(--yellow)'" onmouseout="this.style.color='#999'">Services</a>
+          <a href="../products.html" style="font-family:'Barlow Condensed',sans-serif; font-size:0.875rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--yellow); text-decoration:none;">Products</a>
+          <a href="../contact.html"  style="font-family:'Barlow Condensed',sans-serif; font-size:0.875rem; letter-spacing:0.1em; text-transform:uppercase; color:#999; text-decoration:none;" onmouseover="this.style.color='var(--yellow)'" onmouseout="this.style.color='#999'">Contact</a>
+        </div>
+      </div>
+      <div>
+        <p class="font-condensed" style="font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:1.25rem;">Contact</p>
+        <div style="display:flex; flex-direction:column; gap:0.9rem;">
+          <a href="tel:+27846526938" style="display:flex; align-items:center; gap:0.75rem; color:#999; text-decoration:none; font-size:0.875rem;" onmouseover="this.style.color='var(--yellow)'" onmouseout="this.style.color='#999'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0;"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>+27 84 652 6938</a>
+          <a href="mailto:info@wizeants.com" style="display:flex; align-items:center; gap:0.75rem; color:#999; text-decoration:none; font-size:0.875rem;" onmouseover="this.style.color='var(--yellow)'" onmouseout="this.style.color='#999'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0;"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>info@wizeants.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="border-top:1px solid var(--border);"><div style="max-width:1280px; margin:0 auto; padding:1rem 2rem; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.75rem;"><p style="font-size:0.72rem; color:#444; font-family:'Barlow Condensed',sans-serif; letter-spacing:0.1em; text-transform:uppercase;">&copy; 2025 Wise Ants Creations. All rights reserved.</p></div><div style="height:3px; background:var(--yellow);"></div></div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+  document.getElementById('mobileToggle').addEventListener('click', () => { const m = document.getElementById('mobileMenu'); m.style.display = m.style.display === 'block' ? 'none' : 'block'; });
+  function checkMobile() { const mobile = window.innerWidth < 768; document.getElementById('mobileToggle').style.display = mobile ? 'block' : 'none'; document.getElementById('desktopNav').style.display = mobile ? 'none' : 'flex'; document.getElementById('desktopCta').style.display = mobile ? 'none' : 'inline-flex'; }
+  checkMobile(); window.addEventListener('resize', checkMobile);
+  const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
