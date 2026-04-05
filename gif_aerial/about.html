@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Story | Gif — Aerial Yoga Westport</title>
+  <meta name="description" content="From a circus in the hills of Krabi to the wild Atlantic coast of Co. Mayo — Gif's story, and why she teaches.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --teal:       #04A19C;
+      --teal-deep:  #0C5F5C;
+      --teal-soft:  #8DB8B3;
+      --sand:       #D9CBB8;
+      --cream:      #F6F4EF;
+      --charcoal:   #2B2B2B;
+      --muted:      #8A8580;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      overflow-x: hidden;
+      font-weight: 300;
+    }
+
+    .font-serif { font-family: 'Cormorant Garamond', serif; }
+
+    /* ---- NAV ---- */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      padding: 1.5rem 0;
+      transition: background 0.4s, padding 0.3s, border-bottom 0.4s;
+      background: rgba(246,244,239,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--sand);
+    }
+
+    .nav-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.35rem;
+      color: var(--teal-deep);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-link {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--teal); }
+
+    .nav-cta {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      text-decoration: none;
+      border-bottom: 1px solid var(--teal);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-cta:hover { color: var(--teal-deep); border-color: var(--teal-deep); }
+
+    /* ---- BUTTONS ---- */
+    .btn-teal {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--teal);
+      color: #fff;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.85rem 2.25rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s cubic-bezier(0.4,0,0.2,1);
+    }
+    .btn-teal:hover  { background: var(--teal-deep); transform: translateY(-2px); }
+    .btn-teal:active { transform: translateY(0); }
+
+    /* ---- SECTION LABEL ---- */
+    .section-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+
+    .t-rule { width: 36px; height: 1px; background: var(--teal); }
+
+    /* ---- SCROLL REVEAL ---- */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+
+    /* ---- STORY IMAGE ---- */
+    .story-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* ---- FACT ROW ---- */
+    .fact-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--sand);
+      padding: 1rem 0;
+    }
+    .fact-row:last-child { border-bottom: none; }
+    .fact-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+    .fact-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--charcoal);
+    }
+
+    /* ---- MOBILE NAV ---- */
+    @media (max-width: 768px) {
+      #desktopNav, #desktopCta { display: none !important; }
+      #mobileToggle { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ====================================================
+     NAV
+===================================================== -->
+<nav id="nav">
+  <div style="max-width:1280px; margin:0 auto; padding:0 2.5rem; display:flex; align-items:center; justify-content:space-between;">
+    <a href="index.html" class="nav-wordmark">Aerial Yoga</a>
+
+    <div style="display:flex; align-items:center; gap:2.5rem;" id="desktopNav">
+      <a href="index.html"    class="nav-link">Home</a>
+      <a href="about.html"    class="nav-link active">My Story</a>
+      <a href="classes.html"  class="nav-link">Classes</a>
+      <a href="schedule.html" class="nav-link">Schedule</a>
+      <a href="contact.html"  class="nav-link">Contact</a>
+    </div>
+
+    <a href="contact.html" class="nav-cta" id="desktopCta">Reserve Your Spot</a>
+
+    <button id="mobileToggle" style="display:none; background:none; border:none; cursor:pointer;" aria-label="Menu">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:var(--teal-deep);"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+
+  <div id="mobileMenu" style="display:none; background:var(--cream); border-top:1px solid var(--sand); padding:1.5rem 2.5rem;">
+    <div style="display:flex; flex-direction:column; gap:1.25rem;">
+      <a href="index.html"    class="nav-link" style="color:var(--charcoal); font-size:1rem;">Home</a>
+      <a href="about.html"    class="nav-link" style="color:var(--teal); font-size:1rem;">My Story</a>
+      <a href="classes.html"  class="nav-link" style="color:var(--charcoal); font-size:1rem;">Classes</a>
+      <a href="schedule.html" class="nav-link" style="color:var(--charcoal); font-size:1rem;">Schedule</a>
+      <a href="contact.html"  class="nav-link" style="color:var(--charcoal); font-size:1rem;">Contact</a>
+      <a href="contact.html"  class="btn-teal" style="align-self:flex-start; margin-top:0.5rem;">Reserve Your Spot</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ====================================================
+     PAGE HERO — OPENING QUOTE
+===================================================== -->
+<section style="padding-top: 7rem; background: var(--cream);">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 4rem 2.5rem 0;">
+
+    <!-- Page label -->
+    <div class="reveal" style="display:flex; align-items:center; gap:1rem; margin-bottom:3rem;">
+      <div class="t-rule"></div>
+      <span class="section-label">My Story</span>
+    </div>
+
+    <!-- Split: quote left, portrait right -->
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:5rem; align-items:center;">
+
+      <!-- Quote column -->
+      <div class="reveal">
+        <p class="font-serif" style="font-size:clamp(2.2rem,4vw,3.6rem); font-style:italic; font-weight:300; line-height:1.15; color:var(--teal-deep); margin-bottom:2rem;">
+          "A circus came to my village when I was five. I've been chasing that feeling ever since."
+        </p>
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <div class="t-rule"></div>
+          <span style="font-family:'Jost',sans-serif; font-size:0.75rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted);">Gif &mdash; Founder &amp; Teacher</span>
+        </div>
+      </div>
+
+      <!-- Portrait image -->
+      <div class="reveal delay-2" style="position:relative; aspect-ratio:3/4; overflow:hidden;">
+        <img src="../brand_assets/gif_aerial/Photos/gif_aerial_06.jpg"
+             alt="Gif in the aerial hammock studio"
+             style="width:100%; height:100%; object-fit:cover; object-position:center top;">
+        <!-- teal tint overlay -->
+        <div style="position:absolute; inset:0; background: rgba(12,95,92,0.08); pointer-events:none;"></div>
+        <!-- bottom gradient -->
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,95,92,0.25) 0%, transparent 50%); pointer-events:none;"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ====================================================
+     STORY — PARAGRAPH 1: ORIGIN (text left, image right)
+===================================================== -->
+<section style="padding: 7rem 0; background: var(--cream);">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 0 2.5rem;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center;">
+
+      <!-- Text -->
+      <div>
+        <div class="reveal" style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem;">
+          <div class="t-rule"></div>
+          <span class="section-label">Where it all began</span>
+        </div>
+        <h2 class="reveal font-serif" style="font-size:clamp(1.8rem,3vw,2.8rem); font-style:italic; font-weight:300; color:var(--teal-deep); line-height:1.2; margin-bottom:1.75rem;">
+          Krabi, Thailand.<br>1997.
+        </h2>
+        <p class="reveal delay-1" style="font-size:1rem; line-height:1.85; color:var(--charcoal); margin-bottom:1.25rem;">
+          Gif grew up in the countryside of Krabi, Thailand, where at five years old a travelling circus changed everything. The sight of performers suspended in the air — moving with grace, strength and pure joy — planted a seed that would take over two decades to bloom.
+        </p>
+        <p class="reveal delay-2" style="font-size:1rem; line-height:1.85; color:var(--charcoal);">
+          That image never left her. A child sitting in the grass, watching someone fly.
+        </p>
+      </div>
+
+      <!-- Image -->
+      <div class="reveal delay-1" style="aspect-ratio:4/5; overflow:hidden; position:relative;">
+        <img src="../brand_assets/gif_aerial/Photos/gif_aerial_08.jpeg"
+             alt="Gif in the aerial hammock"
+             style="width:100%; height:100%; object-fit:cover; object-position:center;">
+        <!-- warm sand overlay at bottom -->
+        <div style="position:absolute; bottom:0; left:0; right:0; height:30%; background:linear-gradient(to top, var(--sand), transparent); pointer-events:none;"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     STORY — PARAGRAPH 2: IRELAND (full-bleed image strip with quote)
+===================================================== -->
+<section style="background: var(--teal-deep); overflow:hidden;">
+  <div style="display:grid; grid-template-columns:1fr 1fr; min-height:600px;">
+
+    <!-- Image -->
+    <div style="position:relative; overflow:hidden; min-height:500px;">
+      <img src="../brand_assets/gif_aerial/Photos/gif_aerial_02.jpg"
+           alt="Gif on the Wild Atlantic coast of Co. Mayo"
+           style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;">
+      <div style="position:absolute; inset:0; background:rgba(12,95,92,0.3); pointer-events:none;"></div>
+    </div>
+
+    <!-- Text on deep teal -->
+    <div style="display:flex; flex-direction:column; justify-content:center; padding:5rem 5rem 5rem 4.5rem;">
+      <div class="reveal" style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem;">
+        <div style="width:36px; height:1px; background:var(--teal-soft);"></div>
+        <span style="font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--teal-soft);">The Journey</span>
+      </div>
+      <h2 class="reveal font-serif" style="font-size:clamp(1.8rem,3vw,2.8rem); font-style:italic; font-weight:300; color:#fff; line-height:1.2; margin-bottom:1.75rem;">
+        From the tropics<br>to the Wild Atlantic.
+      </h2>
+      <p class="reveal delay-1" style="font-size:1rem; line-height:1.85; color:rgba(246,244,239,0.8); margin-bottom:1.25rem;">
+        At 28, she returned to that childhood dream and began her aerial yoga training in earnest. Three years ago, she made the journey from Thailand to County Mayo — exchanging tropical coastlines for the wild Atlantic, and bringing her practice with her.
+      </p>
+      <p class="reveal delay-2" style="font-size:1rem; line-height:1.85; color:rgba(246,244,239,0.8);">
+        Westport, it turns out, was exactly the right place for it.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ====================================================
+     STORY — PARAGRAPH 3: TEACHING (text right, image left)
+===================================================== -->
+<section style="padding: 7rem 0; background: var(--sand);">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 0 2.5rem;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center;">
+
+      <!-- Image -->
+      <div class="reveal" style="aspect-ratio:4/5; overflow:hidden; position:relative;">
+        <img src="../brand_assets/gif_aerial/Photos/gif_aerial_07.jpeg"
+             alt="Gif teaching aerial yoga in Westport"
+             style="width:100%; height:100%; object-fit:cover; object-position:center;">
+      </div>
+
+      <!-- Text -->
+      <div>
+        <div class="reveal" style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem;">
+          <div class="t-rule"></div>
+          <span class="section-label">Teaching in Westport</span>
+        </div>
+        <h2 class="reveal font-serif" style="font-size:clamp(1.8rem,3vw,2.8rem); font-style:italic; font-weight:300; color:var(--teal-deep); line-height:1.2; margin-bottom:1.75rem;">
+          Small classes.<br>Real care.
+        </h2>
+        <p class="reveal delay-1" style="font-size:1rem; line-height:1.85; color:var(--charcoal); margin-bottom:1.25rem;">
+          For the past two years, Gif has been teaching aerial yoga in Westport. Her classes are small by design — because she believes the practice works best when there's real care in the room.
+        </p>
+        <p class="reveal delay-2" style="font-size:1rem; line-height:1.85; color:var(--charcoal); margin-bottom:1.25rem;">
+          Every student's growth matters to her, whether it's their first tentative time in the hammock or their first time holding a pose they didn't think was possible.
+        </p>
+        <!-- Limit callout -->
+        <div class="reveal delay-3" style="display:inline-flex; align-items:center; gap:0.75rem; background:rgba(4,161,156,0.08); border:1px solid rgba(4,161,156,0.25); padding:0.75rem 1.25rem; margin-top:0.5rem;">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="var(--teal)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span style="font-family:'Jost',sans-serif; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal-deep);">Max 10 students per class</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     STORY — PARAGRAPH 4: PHILOSOPHY (centred, editorial)
+===================================================== -->
+<section style="padding: 7rem 0; background: var(--cream);">
+  <div style="max-width: 900px; margin: 0 auto; padding: 0 2.5rem; text-align:center;">
+
+    <div class="reveal" style="display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:2rem;">
+      <div class="t-rule"></div>
+      <span class="section-label">The Practice</span>
+      <div class="t-rule"></div>
+    </div>
+
+    <h2 class="reveal font-serif" style="font-size:clamp(2rem,4vw,3.2rem); font-style:italic; font-weight:300; color:var(--teal-deep); line-height:1.2; margin-bottom:2rem;">
+      Something you return to, week after week.
+    </h2>
+
+    <p class="reveal delay-1" style="font-size:1.05rem; line-height:1.9; color:var(--charcoal); margin-bottom:1.5rem;">
+      Gif's approach is gentle, patient, and quietly joyful. She doesn't teach aerial yoga as a performance — she teaches it as a practice. Something that gives back a little more each time.
+    </p>
+
+    <p class="reveal delay-2" style="font-size:1.05rem; line-height:1.9; color:var(--charcoal); margin-bottom:3.5rem;">
+      The studio is welcoming by design. Nobody is expected to be graceful on day one. Nobody is pushed before they're ready. The pace is yours.
+    </p>
+
+    <!-- Closing Gif quote -->
+    <div class="reveal delay-3" style="border-top:1px solid var(--sand); border-bottom:1px solid var(--sand); padding:2.5rem 0; margin-bottom:3rem;">
+      <p class="font-serif" style="font-size:clamp(1.3rem,2.5vw,1.8rem); font-style:italic; font-weight:300; color:var(--teal-deep); line-height:1.4; margin-bottom:1rem;">
+        "Every class, every student, every moment of movement on this island fills my heart. I'm so glad you found your way here."
+      </p>
+      <span style="font-family:'Jost',sans-serif; font-size:0.75rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted);">— Gif</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ====================================================
+     QUICK FACTS
+===================================================== -->
+<section style="padding: 5rem 0; background: var(--sand);">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 0 2.5rem;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start;">
+
+      <!-- Left: photo -->
+      <div class="reveal" style="aspect-ratio:3/4; overflow:hidden; position:relative;">
+        <img src="../brand_assets/gif_aerial/Photos/gif_aerial_05.jpg"
+             alt="Gif in an aerial yoga pose"
+             style="width:100%; height:100%; object-fit:cover; object-position:center top;">
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(12,95,92,0.2), transparent 60%); pointer-events:none;"></div>
+      </div>
+
+      <!-- Right: facts + CTA -->
+      <div style="padding-top:2rem;">
+        <div class="reveal" style="display:flex; align-items:center; gap:0.75rem; margin-bottom:2rem;">
+          <div class="t-rule"></div>
+          <span class="section-label">At a glance</span>
+        </div>
+
+        <div class="reveal delay-1">
+          <div class="fact-row">
+            <span class="fact-label">Originally from</span>
+            <span class="fact-value">Krabi, Thailand</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Based in</span>
+            <span class="fact-value">Westport, Co. Mayo</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Teaching since</span>
+            <span class="fact-value">2 years in Westport</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Class style</span>
+            <span class="fact-value">Gentle, progressive, personal</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Languages</span>
+            <span class="fact-value">Thai & English</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Class size</span>
+            <span class="fact-value">Max 10 students</span>
+          </div>
+        </div>
+
+        <div class="reveal delay-2" style="margin-top:3rem;">
+          <p style="font-size:0.95rem; line-height:1.8; color:var(--charcoal); margin-bottom:1.75rem;">
+            Ready to come along? Gif would love to have you. Get in touch and she'll find the right class for where you are right now.
+          </p>
+          <a href="contact.html" class="btn-teal">Reserve Your Spot →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     FOOTER
+===================================================== -->
+<footer style="background:var(--teal-deep); padding:4rem 0 2.5rem;">
+  <div style="max-width:1280px; margin:0 auto; padding:0 2.5rem;">
+
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:3rem; padding-bottom:3rem; border-bottom:1px solid rgba(255,255,255,0.12);">
+
+      <!-- Brand -->
+      <div>
+        <p class="font-serif" style="font-size:1.4rem; font-style:italic; color:#fff; margin-bottom:0.75rem;">Aerial Yoga</p>
+        <p style="font-size:0.85rem; line-height:1.7; color:rgba(246,244,239,0.55);">With Gif. Westport, Co. Mayo, Ireland.</p>
+      </div>
+
+      <!-- Nav links -->
+      <div>
+        <p style="font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal-soft); margin-bottom:1.25rem;">Pages</p>
+        <div style="display:flex; flex-direction:column; gap:0.65rem;">
+          <a href="index.html"    style="font-size:0.85rem; color:rgba(246,244,239,0.65); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(246,244,239,0.65)'">Home</a>
+          <a href="about.html"    style="font-size:0.85rem; color:rgba(246,244,239,0.65); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(246,244,239,0.65)'">My Story</a>
+          <a href="classes.html"  style="font-size:0.85rem; color:rgba(246,244,239,0.65); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(246,244,239,0.65)'">Classes</a>
+          <a href="schedule.html" style="font-size:0.85rem; color:rgba(246,244,239,0.65); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(246,244,239,0.65)'">Schedule</a>
+          <a href="contact.html"  style="font-size:0.85rem; color:rgba(246,244,239,0.65); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(246,244,239,0.65)'">Contact</a>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div>
+        <p style="font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal-soft); margin-bottom:1.25rem;">Get Started</p>
+        <p style="font-size:0.85rem; line-height:1.75; color:rgba(246,244,239,0.6); margin-bottom:1.25rem;">Classes run weekly. Spots are limited — get in touch to reserve yours.</p>
+        <a href="contact.html" style="font-family:'Jost',sans-serif; font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.4); padding-bottom:2px; transition:border-color 0.2s;" onmouseover="this.style.borderColor='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.4)'">Reserve Your Spot →</a>
+      </div>
+
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; padding-top:2rem; flex-wrap:wrap; gap:1rem;">
+      <p style="font-size:0.75rem; color:rgba(246,244,239,0.35);">© 2025 Gif Aerial Yoga. Westport, Co. Mayo.</p>
+      <p style="font-size:0.75rem; color:rgba(246,244,239,0.25);">Site by Limitless Design</p>
+    </div>
+
+  </div>
+</footer>
+
+<!-- ====================================================
+     SCRIPTS
+===================================================== -->
+<script>
+  // Mobile toggle
+  const toggle = document.getElementById('mobileToggle');
+  const menu   = document.getElementById('mobileMenu');
+  toggle?.addEventListener('click', () => {
+    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
