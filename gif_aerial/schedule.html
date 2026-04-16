@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule & Pricing | Gif Aerial Yoga Westport</title>
+  <meta name="description" content="Weekly aerial yoga schedule in Westport, Co. Mayo. Tuesday and Wednesday evenings — Beginners, Improver, and Aerial Hammock classes with Gif.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --teal:       #04A19C;
+      --teal-deep:  #0C5F5C;
+      --teal-soft:  #8DB8B3;
+      --sand:       #D9CBB8;
+      --cream:      #F6F4EF;
+      --charcoal:   #2B2B2B;
+      --muted:      #8A8580;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      overflow-x: hidden;
+      font-weight: 300;
+    }
+
+    .font-serif { font-family: 'Cormorant Garamond', serif; }
+
+    /* ---- NAV ---- */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      padding: 1.5rem 0;
+      background: rgba(246,244,239,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--sand);
+    }
+    .nav-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.35rem;
+      color: var(--teal-deep);
+      text-decoration: none;
+    }
+    .nav-link {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--teal); }
+    .nav-cta {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      text-decoration: none;
+      border-bottom: 1px solid var(--teal);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-cta:hover { color: var(--teal-deep); border-color: var(--teal-deep); }
+
+    /* ---- BUTTONS ---- */
+    .btn-teal {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--teal); color: #fff;
+      font-family: 'Jost', sans-serif; font-weight: 400;
+      font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.85rem 2.25rem; text-decoration: none;
+      transition: background 0.2s, transform 0.15s cubic-bezier(0.4,0,0.2,1);
+    }
+    .btn-teal:hover  { background: var(--teal-deep); transform: translateY(-2px); }
+    .btn-teal:active { transform: translateY(0); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: var(--teal-deep);
+      border: 1px solid var(--teal-deep);
+      font-family: 'Jost', sans-serif; font-weight: 400;
+      font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.85rem 2.25rem; text-decoration: none;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-outline:hover { background: var(--teal-deep); color: #fff; transform: translateY(-2px); }
+
+    /* ---- LABELS ---- */
+    .section-label {
+      font-family: 'Jost', sans-serif; font-weight: 400;
+      font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal);
+    }
+    .t-rule { width: 36px; height: 1px; background: var(--teal); flex-shrink:0; }
+
+    /* ---- SCHEDULE CARD ---- */
+    .schedule-card {
+      background: #fff;
+      border: 1px solid var(--sand);
+      padding: 2.5rem;
+      position: relative;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .schedule-card:hover {
+      border-color: var(--teal-soft);
+      box-shadow: 0 16px 48px rgba(12,95,92,0.07);
+      transform: translateY(-4px);
+    }
+    .schedule-card .day-pill {
+      display: inline-block;
+      font-family: 'Jost', sans-serif; font-size: 0.68rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      background: rgba(4,161,156,0.07);
+      border: 1px solid rgba(4,161,156,0.2);
+      color: var(--teal-deep);
+      padding: 0.3rem 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+    .schedule-card .time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 400;
+      color: var(--teal); letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
+    }
+    .schedule-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem; font-style: italic; font-weight: 300;
+      color: var(--teal-deep); line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .schedule-card p {
+      font-size: 0.88rem; line-height: 1.8; color: var(--muted);
+    }
+    .schedule-card .level {
+      font-family: 'Jost', sans-serif; font-size: 0.65rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--teal-soft); margin-top: 1.25rem;
+    }
+
+    /* ---- PRICING CARD ---- */
+    .price-card {
+      border: 1px solid var(--sand);
+      padding: 2.5rem 2rem;
+      display: flex; flex-direction: column;
+      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .price-card:hover { border-color: var(--teal-soft); transform: translateY(-3px); }
+    .price-card.featured {
+      border-color: var(--teal);
+      background: var(--teal-deep);
+    }
+
+    /* ---- FAQ ---- */
+    .faq-item {
+      border-bottom: 1px solid var(--sand);
+    }
+    .faq-q {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.35rem 0; cursor: pointer;
+      font-family: 'Jost', sans-serif; font-size: 0.95rem; font-weight: 400;
+      color: var(--charcoal);
+      gap: 1rem;
+    }
+    .faq-q:hover { color: var(--teal-deep); }
+    .faq-icon { flex-shrink:0; transition: transform 0.3s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      display: none;
+      padding-bottom: 1.25rem;
+      font-size: 0.9rem; line-height: 1.85; color: var(--muted);
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ---- SCROLL REVEAL ---- */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+
+    @media (max-width: 768px) {
+      #desktopNav, #desktopCta { display: none !important; }
+      #mobileToggle { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div style="max-width:1280px; margin:0 auto; padding:0 2.5rem; display:flex; align-items:center; justify-content:space-between;">
+    <a href="index.html" class="nav-wordmark">Aerial Yoga</a>
+    <div style="display:flex; align-items:center; gap:2.5rem;" id="desktopNav">
+      <a href="index.html"    class="nav-link">Home</a>
+      <a href="about.html"    class="nav-link">My Story</a>
+      <a href="classes.html"  class="nav-link">Classes</a>
+      <a href="schedule.html" class="nav-link active">Schedule</a>
+      <a href="contact.html"  class="nav-link">Contact</a>
+    </div>
+    <a href="contact.html" class="nav-cta" id="desktopCta">Reserve Your Spot</a>
+    <button id="mobileToggle" style="display:none; background:none; border:none; cursor:pointer;" aria-label="Menu">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:var(--teal-deep);"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="mobileMenu" style="display:none; background:var(--cream); border-top:1px solid var(--sand); padding:1.5rem 2.5rem;">
+    <div style="display:flex; flex-direction:column; gap:1.25rem;">
+      <a href="index.html"    class="nav-link" style="color:var(--charcoal); font-size:1rem;">Home</a>
+      <a href="about.html"    class="nav-link" style="color:var(--charcoal); font-size:1rem;">My Story</a>
+      <a href="classes.html"  class="nav-link" style="color:var(--charcoal); font-size:1rem;">Classes</a>
+      <a href="schedule.html" class="nav-link" style="color:var(--teal); font-size:1rem;">Schedule</a>
+      <a href="contact.html"  class="nav-link" style="color:var(--charcoal); font-size:1rem;">Contact</a>
+      <a href="contact.html"  class="btn-teal" style="align-self:flex-start; margin-top:0.5rem;">Reserve Your Spot</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ====================================================
+     PAGE HEADER
+===================================================== -->
+<section style="padding-top:7rem; background:var(--cream);">
+  <div style="max-width:1280px; margin:0 auto; padding:4rem 2.5rem 3rem;">
+
+    <div class="reveal" style="display:flex; align-items:center; gap:1rem; margin-bottom:2rem;">
+      <div class="t-rule"></div>
+      <span class="section-label">Schedule & Pricing</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end;">
+      <h1 class="reveal font-serif" style="font-size:clamp(2.4rem,5vw,4rem); font-style:italic; font-weight:300; color:var(--teal-deep); line-height:1.1;">
+        Classes run<br>every week.
+      </h1>
+      <p class="reveal delay-1" style="font-size:1rem; line-height:1.85; color:var(--muted); padding-bottom:0.5rem;">
+        Two evenings a week in Westport — Tuesday and Wednesday. Three classes, each with a different focus. Spots are limited to 10 students so Gif can give proper attention to everyone in the room.
+      </p>
+    </div>
+
+  </div>
+  <div style="height:1px; background:var(--sand);"></div>
+</section>
+
+<!-- ====================================================
+     WEEKLY SCHEDULE
+===================================================== -->
+<section style="padding:6rem 0; background:var(--cream);">
+  <div style="max-width:1280px; margin:0 auto; padding:0 2.5rem;">
+
+    <!-- Tuesday -->
+    <div style="margin-bottom:4rem;">
+      <div class="reveal" style="display:flex; align-items:center; gap:1.5rem; margin-bottom:2rem;">
+        <h2 class="font-serif" style="font-size:clamp(1.6rem,3vw,2.4rem); font-style:italic; font-weight:300; color:var(--teal-deep);">Tuesday</h2>
+        <div style="flex:1; height:1px; background:var(--sand);"></div>
+      </div>
+
+      <div class="reveal delay-1" style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+
+        <!-- 6:30 Hammock -->
+        <div class="schedule-card">
+          <div style="position:absolute; top:0; left:0; width:3px; height:100%; background:var(--teal);"></div>
+          <div class="day-pill">Tuesday Evening</div>
+          <div class="time">6:30 – 7:30 pm</div>
+          <h3>Aerial Hammock</h3>
+          <p>Fluid transitions, rhythmic sequences and expressive movement. The class where aerial yoga starts to feel like something more than exercise.</p>
+          <div class="level">All levels welcome</div>
+          <div style="margin-top:1.75rem;">
+            <a href="contact.html?class=hammock" class="btn-teal" style="font-size:0.75rem; padding:0.7rem 1.5rem;">Reserve →</a>
+          </div>
+        </div>
+
+        <!-- 7:30 Beginners -->
+        <div class="schedule-card">
+          <div style="position:absolute; top:0; left:0; width:3px; height:100%; background:var(--teal-soft);"></div>
+          <div class="day-pill">Tuesday Evening</div>
+          <div class="time">7:30 – 8:30 pm</div>
+          <h3>Aerial Yoga<br>for Beginners</h3>
+          <p>Foundational poses, hammock safety and coordination — designed for complete newcomers. The perfect starting point.</p>
+          <div class="level">Beginner — no experience needed</div>
+          <div style="margin-top:1.75rem;">
+            <a href="contact.html?class=beginners" class="btn-teal" style="font-size:0.75rem; padding:0.7rem 1.5rem;">Reserve →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Wednesday -->
+    <div>
+      <div class="reveal" style="display:flex; align-items:center; gap:1.5rem; margin-bottom:2rem;">
+        <h2 class="font-serif" style="font-size:clamp(1.6rem,3vw,2.4rem); font-style:italic; font-weight:300; color:var(--teal-deep);">Wednesday</h2>
+        <div style="flex:1; height:1px; background:var(--sand);"></div>
+      </div>
+
+      <div class="reveal delay-1" style="display:grid; grid-template-columns:1fr 2fr; gap:1.5rem;">
+
+        <!-- 7:30 Improver -->
+        <div class="schedule-card">
+          <div style="position:absolute; top:0; left:0; width:3px; height:100%; background:var(--sand);"></div>
+          <div class="day-pill">Wednesday Evening</div>
+          <div class="time">7:30 – 8:30 pm</div>
+          <h3>Improver<br>Aerial</h3>
+          <p>Technical refinement, core strength and intentional progression for students who've completed the beginner foundations.</p>
+          <div class="level">Min. 4 beginner classes recommended</div>
+          <div style="margin-top:1.75rem;">
+            <a href="contact.html?class=improver" class="btn-teal" style="font-size:0.75rem; padding:0.7rem 1.5rem;">Reserve →</a>
+          </div>
+        </div>
+
+        <!-- Quote fill -->
+        <div style="background:var(--teal-deep); padding:3rem; display:flex; flex-direction:column; justify-content:center;">
+          <p class="font-serif" style="font-size:clamp(1.3rem,2.5vw,1.9rem); font-style:italic; font-weight:300; color:#fff; line-height:1.4; margin-bottom:1.5rem;">
+            "Booking is simple — just get in touch. Gif will confirm your spot and answer any questions before your first class."
+          </p>
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <div style="width:36px; height:1px; background:var(--teal-soft);"></div>
+            <span style="font-family:'Jost',sans-serif; font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--teal-soft);">No app. No account needed.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Limit notice -->
+    <div class="reveal" style="margin-top:2.5rem; display:flex; align-items:center; gap:0.75rem; background:rgba(4,161,156,0.06); border:1px solid rgba(4,161,156,0.18); padding:1rem 1.5rem; width:fit-content;">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="var(--teal)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span style="font-family:'Jost',sans-serif; font-size:0.8rem; letter-spacing:0.1em; color:var(--teal-deep);">All classes are capped at <strong>10 students</strong> — reserve early to avoid missing out.</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ====================================================
+     PRICING
+===================================================== -->
+<section style="padding:6rem 0; background:var(--sand);">
+  <div style="max-width:1280px; margin:0 auto; padding:0 2.5rem;">
+
+    <div class="reveal" style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+      <div class="t-rule"></div>
+      <span class="section-label">Pricing</span>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:3.5rem;">
+      <h2 class="reveal font-serif" style="font-size:clamp(1.8rem,3.5vw,3rem); font-style:italic; font-weight:300; color:var(--teal-deep); line-height:1.15;">
+        Simple, fair pricing.<br>No surprises.
+      </h2>
+      <p class="reveal delay-1" style="font-size:0.95rem; line-height:1.85; color:var(--charcoal);">
+        Pricing is confirmed by Gif when you get in touch — she'll let you know the current rates for drop-in sessions and class packs. Payment by cash, Revolut or bank transfer.
+      </p>
+    </div>
+
+    <!-- Pricing cards -->
+    <div class="reveal delay-1" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.5rem;">
+
+      <!-- Drop-in -->
+      <div class="price-card" style="background:#fff;">
+        <div style="font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal); margin-bottom:1.5rem;">Drop-in</div>
+        <p class="font-serif" style="font-size:2.4rem; font-weight:300; color:var(--teal-deep); line-height:1; margin-bottom:0.5rem;">TBC</p>
+        <p style="font-size:0.8rem; color:var(--muted); margin-bottom:2rem;">per class</p>
+        <div style="height:1px; background:var(--sand); margin-bottom:1.5rem;"></div>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem; margin-bottom:2rem; flex:1;">
+          <li style="font-size:0.88rem; color:var(--charcoal); display:flex; gap:0.6rem; align-items:flex-start;">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--teal)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M5 13l4 4L19 7"/></svg>
+            Any class, any week
+          </li>
+          <li style="font-size:0.88rem; color:var(--charcoal); display:flex; gap:0.6rem; align-items:flex-start;">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--teal)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M5 13l4 4L19 7"/></svg>
+            No commitment required
+          </li>
+          <li style="font-size:0.88rem; color:var(--charcoal); display:flex; gap:0.6rem; align-items:flex-start;">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--teal)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M5 13l4 4L19 7"/></svg>
+            Perfect for trying it out
+          </li>
+        </ul>
+        <a href="contact.html" class="btn-outline" style="justify-content:center;">Get in Touch</a>
+      </div>
+
+      <!-- 5-class pack (featured) -->
+      <div class="price-card" style="background:var(--teal-deep); border-color:var(--teal-deep); position:relative;">
+        <div style="position:absolute; top:-1px; left:50%; transform:translateX(-50%); background:var(--teal); padding:0.3rem 1rem; font-family:'Jost',sans-serif; font-size:0.65rem; letter-spacing:0.16em; text-transform:uppercase; color:#fff; white-space:nowrap;">Most Popular</div>
+        <div style="font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal-soft); margin-bottom:1.5rem; margin-top:0.75rem;">5-Class Pack</div>
+        <p class="font-serif" style="font-size:2.4rem; font-weight:300; color:#fff; line-height:1; margin-bottom:0.5rem;">TBC</p>
+        <p style="font-size:0.8rem; color:rgba(246,244,239,0.5); margin-bottom:2rem;">for 5 classes</p>
+        <div style="height:1px; background:rgba(255,255,255,0.12); margin-bottom:1.5rem;"></div>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem; margin-bottom:2rem; flex:1;">
+          <li style="font-size:0.88rem; color:rgba(246,244,239,0.8); display:flex; gap:0.6rem; align-items:flex-start;">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--teal-soft)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M5 13l4 4L19 7"/></svg>
+            Use across any class type
+          </li>
+          <li style="font-size:0.88rem; color:rgba(246,244,239,0.8); display:flex; gap:0.6rem; align-items:flex-start;">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--teal-soft)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M5 13l4 4L19 7"/></svg>
+            Better value than drop-in
+          </li>
+          <li style="font-size:0.88rem; color:rgba(246,244,239,0.8); display:flex; gap:0.6rem; align-items:flex-start;">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--teal-soft)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M5 13l4 4L19 7"/></svg>
+            Ideal for getting into a routine
+          </li>
+        </ul>
+        <a href="contact.html" style="display:inline-flex; justify-content:center; align-items:center; width:100%; background:#fff; color:var(--teal-deep); font-family:'Jost',sans-serif; font-weight:400; font-size:0.8rem; letter-spacing:0.14em; text-transform:uppercase; padding:0.85rem 2rem; text-decoration:none; transition:background 0.2s, transform 0.15s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='#fff'">Get in Touch</a>
+      </div>
+
+      <!-- 10-class pack -->
+      <div class="price-card" style="background:#fff;">
+        <div style="font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal); margin-bottom:1.5rem;">10-Class Pack</div>
+        <p class="font-serif" style="font-size:2.4rem; font-weight:300; color:var(--teal-deep); line-height:1; margin-bottom:0.5rem;">TBC</p>
+        <p style="font-size:0.8rem; color:var(--muted); margin-bottom:2rem;">for 10 classes</p>
+        <div style="height:1px; background:var(--sand); margin-bottom:1.5rem;"></div>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem; margin-bottom:2rem; flex:1;">
+          <li style="font-size:0.88rem; color:var(--charcoal); display:flex; gap:0.6rem; align-items:flex-start;">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--teal)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M5 13l4 4L19 7"/></svg>
+            Best value option
+          </li>
+          <li style="font-size:0.88rem; color:var(--charcoal); display:flex; gap:0.6rem; align-items:flex-start;">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--teal)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M5 13l4 4L19 7"/></svg>
+            Mix and match class types
+          </li>
+          <li style="font-size:0.88rem; color:var(--charcoal); display:flex; gap:0.6rem; align-items:flex-start;">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--teal)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M5 13l4 4L19 7"/></svg>
+            For students committed to the practice
+          </li>
+        </ul>
+        <a href="contact.html" class="btn-outline" style="justify-content:center;">Get in Touch</a>
+      </div>
+
+    </div>
+
+    <!-- Payment note -->
+    <div class="reveal delay-2" style="margin-top:2rem; text-align:center;">
+      <p style="font-size:0.82rem; color:var(--muted); letter-spacing:0.04em;">
+        Payment accepted by <strong style="color:var(--charcoal); font-weight:400;">Cash</strong> · <strong style="color:var(--charcoal); font-weight:400;">Revolut</strong> · <strong style="color:var(--charcoal); font-weight:400;">Bank Transfer</strong>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ====================================================
+     FAQ
+===================================================== -->
+<section style="padding:6rem 0; background:var(--cream);">
+  <div style="max-width:860px; margin:0 auto; padding:0 2.5rem;">
+
+    <div class="reveal" style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+      <div class="t-rule"></div>
+      <span class="section-label">Common Questions</span>
+    </div>
+    <h2 class="reveal font-serif" style="font-size:clamp(1.8rem,3.5vw,2.8rem); font-style:italic; font-weight:300; color:var(--teal-deep); line-height:1.2; margin-bottom:3rem;">
+      Before your first class.
+    </h2>
+
+    <div class="reveal delay-1" id="faqList">
+
+      <div class="faq-item open">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Do I need any experience?
+          <svg class="faq-icon" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+        <div class="faq-a">
+          Not at all. The Beginners class is designed for complete newcomers — no flexibility, fitness level or prior yoga experience required. Gif will guide you through everything from the very beginning.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What should I wear?
+          <svg class="faq-icon" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+        <div class="faq-a">
+          Fitted clothing that covers your armpits and the backs of your knees. The silk can pinch loose fabric, so form-fitting activewear works best. Avoid zips or buckles that might catch.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Is it safe?
+          <svg class="faq-icon" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+        <div class="faq-a">
+          Yes. Gif guides every student through the hammock carefully. Classes are deliberately small — max 10 students — so she can give proper attention to every person in the room.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How high off the ground will I be?
+          <svg class="faq-icon" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+        <div class="faq-a">
+          Not very. The hammock is set low enough that you're never far from the floor — especially in the beginner class. You'll always feel grounded, even when you're in the air.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Can I come if I'm not fit?
+          <svg class="faq-icon" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+        <div class="faq-a">
+          Absolutely. Aerial yoga builds fitness — it doesn't require it. The beginner class is designed to ease you in gently, building strength and coordination over time at your own pace.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How do I pay?
+          <svg class="faq-icon" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+        <div class="faq-a">
+          Gif will confirm the current rates and payment details when she gets back to you. Cash, Revolut and bank transfer are all accepted. There's no online payment required.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How do I know which class is right for me?
+          <svg class="faq-icon" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+        <div class="faq-a">
+          If you're unsure, just ask. Send Gif a message, tell her where you're starting from, and she'll point you in the right direction honestly. Almost everyone starts with the Beginners class and that's exactly the right place to be.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     CTA STRIP
+===================================================== -->
+<section style="background:var(--teal-deep); padding:5rem 0; text-align:center;">
+  <div style="max-width:640px; margin:0 auto; padding:0 2.5rem;">
+    <h2 class="reveal font-serif" style="font-size:clamp(1.8rem,4vw,3rem); font-style:italic; font-weight:300; color:#fff; line-height:1.2; margin-bottom:1.25rem;">
+      Ready to reserve your spot?
+    </h2>
+    <p class="reveal delay-1" style="font-size:0.95rem; line-height:1.85; color:rgba(246,244,239,0.7); margin-bottom:2.25rem;">
+      Drop Gif a message. She'll get back to you within 24 hours with everything you need — which class to start with, what to bring, and how to find the studio.
+    </p>
+    <div class="reveal delay-2">
+      <a href="contact.html" style="display:inline-flex; align-items:center; gap:0.5rem; background:#fff; color:var(--teal-deep); font-family:'Jost',sans-serif; font-weight:400; font-size:0.8rem; letter-spacing:0.14em; text-transform:uppercase; padding:0.95rem 2.5rem; text-decoration:none; transition:background 0.2s, transform 0.15s;" onmouseover="this.style.background='var(--cream)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#fff';this.style.transform='translateY(0)'">Get in Touch →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:var(--teal-deep); padding:0 0 2.5rem; border-top:1px solid rgba(255,255,255,0.08);">
+  <div style="max-width:1280px; margin:0 auto; padding:0 2.5rem;">
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:3rem; padding:3rem 0; border-bottom:1px solid rgba(255,255,255,0.12);">
+      <div>
+        <p class="font-serif" style="font-size:1.4rem; font-style:italic; color:#fff; margin-bottom:0.75rem;">Aerial Yoga</p>
+        <p style="font-size:0.85rem; line-height:1.7; color:rgba(246,244,239,0.55);">With Gif. Westport, Co. Mayo, Ireland.</p>
+      </div>
+      <div>
+        <p style="font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal-soft); margin-bottom:1.25rem;">Pages</p>
+        <div style="display:flex; flex-direction:column; gap:0.65rem;">
+          <a href="index.html"    style="font-size:0.85rem; color:rgba(246,244,239,0.65); text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(246,244,239,0.65)'">Home</a>
+          <a href="about.html"    style="font-size:0.85rem; color:rgba(246,244,239,0.65); text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(246,244,239,0.65)'">My Story</a>
+          <a href="classes.html"  style="font-size:0.85rem; color:rgba(246,244,239,0.65); text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(246,244,179,0.65)'">Classes</a>
+          <a href="schedule.html" style="font-size:0.85rem; color:rgba(246,244,239,0.65); text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(246,244,239,0.65)'">Schedule</a>
+          <a href="contact.html"  style="font-size:0.85rem; color:rgba(246,244,239,0.65); text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(246,244,239,0.65)'">Contact</a>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal-soft); margin-bottom:1.25rem;">Get Started</p>
+        <p style="font-size:0.85rem; line-height:1.75; color:rgba(246,244,239,0.6); margin-bottom:1.25rem;">Classes run weekly. Spots are limited — get in touch to reserve yours.</p>
+        <a href="contact.html" style="font-family:'Jost',sans-serif; font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.4); padding-bottom:2px;" onmouseover="this.style.borderColor='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.4)'">Reserve Your Spot →</a>
+      </div>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:center; padding-top:2rem; flex-wrap:wrap; gap:1rem;">
+      <p style="font-size:0.75rem; color:rgba(246,244,239,0.35);">© 2025 Gif Aerial Yoga. Westport, Co. Mayo.</p>
+      <p style="font-size:0.75rem; color:rgba(246,244,239,0.25);">Site by Limitless Design</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile toggle
+  const toggle = document.getElementById('mobileToggle');
+  const menu   = document.getElementById('mobileMenu');
+  toggle?.addEventListener('click', () => {
+    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+  });
+
+  // FAQ accordion
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
